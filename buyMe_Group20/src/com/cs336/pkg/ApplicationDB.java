@@ -5,21 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ApplicationDB {
-	
-	public ApplicationDB(){
-		
+
+	public ApplicationDB() {
+
 	}
 
 	@SuppressWarnings("deprecation")
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://localhost:3306/BarBeerDrinkerSample";
+		String connectionUrl = "jdbc:mysql://localhost:3306/database20";
 		Connection connection = null;
 		
 		try {
 			//Load JDBC driver - the interface standardizing the connection 
-			//procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			//procedure. Look at WEB-INF\lib for a mysql connector jar file, 
+			//otherwise it fails.
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -43,8 +44,8 @@ public class ApplicationDB {
 		return connection;
 		
 	}
-	
-	public void closeConnection(Connection connection){
+
+	public void closeConnection(Connection connection) {
 		try {
 			connection.close();
 		} catch (SQLException e) {
@@ -52,13 +53,13 @@ public class ApplicationDB {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		ApplicationDB dao = new ApplicationDB();
 		Connection connection = dao.getConnection();
-		
-		System.out.println(connection);		
+
+		System.out.println(connection);
 		dao.closeConnection(connection);
 	}
-	
+
 }
