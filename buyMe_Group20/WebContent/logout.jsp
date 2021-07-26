@@ -9,8 +9,8 @@
 <body>
 	<%
 		session.invalidate();
-		session.getAttribute("user");   //this will throw an error
-		response.sendRedirect("login.jsp");
+		//session.getAttribute("user");   //this will throw an error
+		response.sendRedirect("index.jsp");
 	%>
 </body>
 </html>

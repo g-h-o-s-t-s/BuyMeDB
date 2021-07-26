@@ -4,10 +4,11 @@
     String pwd = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection(
-    		"jdbc:mysql://localhost:3306/BuyMeGroup20","root", "UN5AW!]x9K{[bP");
+    		"jdbc:mysql://localhost:3306/database20","root", "UN5AW!]x9K{[bP");
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from users where username='" + userid + "' and password='" + pwd + "'");
+    rs = st.executeQuery("select * from UserAccount where username='" + userid +
+    		"' and pass='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
         out.println("welcome " + userid);
