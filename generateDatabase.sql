@@ -27,7 +27,7 @@ primary key (username)
 CREATE TABLE Administrator(
 email varchar(40),
 username varchar(40),
-accessLevel char(2),
+pass varchar(40) NOT NULL,
 primary key (email, username),
 foreign key (username) references UserAccount (username)
 );
@@ -35,7 +35,7 @@ foreign key (username) references UserAccount (username)
 CREATE TABLE CustomerRep(
 email varchar(40),
 username varchar(40),
-accessLevel char(2),
+pass varchar(40) NOT NULL,
 primary key (email, username),
 foreign key (username) references UserAccount (username)
 );
@@ -43,7 +43,6 @@ foreign key (username) references UserAccount (username)
 CREATE TABLE EndUser(
 email varchar(40),
 username varchar(40),
-accessLevel char(2),
 primary key (email, username),
 foreign key (username) references UserAccount (username)
 );
@@ -51,7 +50,7 @@ foreign key (username) references UserAccount (username)
 CREATE TABLE Buyer(
 email varchar(40),
 username varchar(40),
-accessLevel char(2),
+pass varchar(40) NOT NULL,
 primary key (email, username),
 foreign key (email, username) references EndUser (email, username)
 );
@@ -59,7 +58,7 @@ foreign key (email, username) references EndUser (email, username)
 CREATE TABLE Seller(
 email varchar(40),
 username varchar(40),
-accessLevel char(2),
+pass varchar(40) NOT NULL,
 primary key (email, username),
 foreign key (email, username) references EndUser (email, username)
 );
@@ -194,3 +193,15 @@ color varchar(40),
 primary key (alertID),
 foreign key (email) references EndUser (email)
 );
+
+INSERT INTO UserAccount (username, pass) 
+    VALUES ('root', 'UN5AW!]x9K{[bP');
+    
+UPDATE Administrator, UserAccount
+    SET Administrator.username = UserAccount.username
+    AND Administrator.pass = UserAccount.pass;
+ 
+ INSERT INTO Administrator (email, username, pass) 
+    VALUES ('root@root.com', 'root', 'UN5AW!]x9K{[bP');
+    
+select * from Administrator;
