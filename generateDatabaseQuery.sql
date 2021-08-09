@@ -12,7 +12,7 @@ USE database20;
 DROP TABLE IF EXISTS UserAccount;
 CREATE TABLE UserAccount(
 	username varchar(40),
-    pass varchar(100) BINARY NOT NULL,
+    password varchar(100) BINARY NOT NULL,
     email varchar(100) NOT NULL,
     firstName varchar(40) BINARY NOT NULL,
     lastName varchar(40) BINARY NOT NULL,
@@ -178,6 +178,12 @@ CREATE TABLE AutoBidder(
 		ON DELETE CASCADE,
 	primary key(userAcc, productId)
 );
+
+INSERT INTO UserAccount VALUES 
+    ('root', 'UN5AW!]x9K{[bP', 'admin@buyme.com', 'Admin', 'Istrator', 
+    '57 US Highway 1, New Brunswick, NJ 08901', true, 'ADMIN'),
+    ('rep115932', 'HW)<;46jE<E*g,#', 'rep115932@buyme.com', 'John', 'Doe',
+    '100 Ryders Ln, Milltown, NJ 08850', true, 'CUSTOMER_REP');
 
 # Use TRIGGERs to have a Procedure that fires upon certain event(s) occuring.
 /* 
