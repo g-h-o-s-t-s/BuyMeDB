@@ -3,15 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>BuyMe - Login</title>
+<title>BuyMe - Login Error</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="content center">
-		<h1 style="font-size: 400%;">BuyMe</h1>
-		<h2>
-			<i>Buy and Sell Your Products with the friendliest online community!</i>
-		</h2>
+		<h2>Error: Login failed. Username or password is incorrect.</h2>
 		<form action="loginHandler.jsp" method="POST">
 			<input type="text" name="username" placeholder="Username"> <br>
 			<input type="password" name="password" placeholder="Password">

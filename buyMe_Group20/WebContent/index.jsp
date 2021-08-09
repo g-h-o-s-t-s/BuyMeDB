@@ -1,42 +1,118 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<!-- Sagnik Mukherjee, Rishab Das, Sami Munir 
+	 Group 20 CS336 -->
+<%@ page language="java" contentType="text/html" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/styles.css"/>
-<title>Registry Page</title>
+	<title>BuyMe Home</title>
+	<link rel="stylesheet" href="style.css?v=1.0" />
 </head>
 <body>
-	<div id="frame">
-		<form method="post" action="verifyRegister.jsp">
-			<table id="register">
-			<tr>    
-			<td>Email: </td><td><input type="text" name="email"></td>
-			</tr>
+	<% if (session.getAttribute("user") == null) { 
+    		response.sendRedirect("login.jsp");
+       } else { %>
+	<%@ include file="navbar.jsp"%>
+	<div class="content">
+		<h1>
+			Hello,
+			<%=session.getAttribute("firstName")%></h1>
+		<%
+	    		String url = "jdbc:mysql://localhost:3306/buyMe";
+	    		Connection conn = null;
+	    		PreparedStatement ps = null;
+	    		PreparedStatement accountPs = null;
+	    		PreparedStatement alertPs = null;
+	    		ResultSet rs = null;
+	    		ResultSet accountRs = null;
+	    		ResultSet alertRs = null;
+	    		
+	    		try {
+					Class.forName("com.mysql.jdbc.Driver").newInstance();
+					conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+				
+	    		
+		    		Locale locale = new Locale("en", "US");
+					NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
+					String user = (session.getAttribute("user")).toString();
+					
+					String alertQuery = "SELECT * FROM Alerts WHERE user=? AND seen=false";
+		    		String auctionQuery = "SELECT * FROM Product WHERE seller=?";
+		    		String accountQuery = "SELECT * FROM Account WHERE username=?";
+		    		
+		    		alertPs = conn.prepareStatement(alertQuery);
+		    		alertPs.setString(1, user);
+		    		alertRs = alertPs.executeQuery();
+		    		if (alertRs.next()) { %>
+		<h2>Unread Alerts</h2>
+		<table>
 			<tr>
-			<td>Username: </td><td><input type="text" name="username"></td>
+				<th>Message</th>
 			</tr>
+			<%	do { %>
 			<tr>
-			<td>Password: </td><td><input type="password" name="password"></td>
+				<td><%= alertRs.getString("message") %> <a
+					href="markAsRead.jsp?messageId=<%= alertRs.getInt("messageId") %>">
+						<input type="submit" value="Mark as read">
+				</a></td>
 			</tr>
+			<%	} while (alertRs.next()); %>
+		</table>
+		<%	}   		
+		    		
+		    		accountPs = conn.prepareStatement(accountQuery);
+		    		accountPs.setString(1, user);
+		    		accountRs = accountPs.executeQuery();
+		    		accountRs.next();
+		    		// Display admin commands if access level is 3
+		    		if (accountRs.getInt("accessLevel") == 3) { %>
+		<jsp:include page="adminDashboard.jsp" />
+
+		<%	} 
+		    		if (accountRs.getInt("accessLevel") == 2) { %>
+		<jsp:include page="customerRepDashboard.jsp" />
+		<%  }
+		    		
+		    		ps = conn.prepareStatement(auctionQuery);
+		    		ps.setString(1, user);
+		    		rs = ps.executeQuery();
+		    		
+		   			
+		   			if (rs.next() && accountRs.getInt("accessLevel") == 1) { 
+		   		%>
+		<h2>Your created auctions:</h2>
+		<table>
 			<tr>
-			<td>Confirm Password: </td><td><input type="password" name="cpassword"></td>
+				<th>Item</th>
+				<th>Current Bid</th>
+				<th>End Date/Time</th>
 			</tr>
+			<%	do { %>
 			<tr>
-			<td>First Name: </td><td><input type="text" name="fname"></td>
+				<td><a
+					href="auction.jsp?productId=<%= rs.getInt("productId") %>"> <%= rs.getString("brand") + " " + rs.getString("model") + " " + rs.getString("gender") +  " " + rs.getFloat("size") %>
+				</a></td>
+				<td><%= currency.format(rs.getDouble("price")) %></td>
+				<td><%= rs.getString("endDate") %></td>
 			</tr>
-			<tr>
-			<td>Last Name: </td><td><input type="text" name="lname"></td>
-			</tr>
-			</table>
-			<br>
-			<input type="submit" value="Register" class="button">
-		</form>
-		<form method="post" action="login.jsp">
-			<input type="submit" value="Back to log in" class="button">
-		</form>
+			<%	} while (rs.next()); %>
+		</table>
+		<%	} else if (accountRs.getInt("accessLevel") == 1){ %>
+		<h2>You currently have no items for auction.</h2>
+		<%	}
+    		} catch (SQLException e) {
+				out.print("<p>Error connecting to MYSQL server.</p>");
+			    e.printStackTrace();
+			} finally {
+				try { rs.close(); } catch (Exception e) {} 
+				try { accountRs.close(); } catch (Exception e) {} 
+				try { accountPs.close(); } catch (Exception e) {} 
+				try { ps.close(); } catch (Exception e) {} 
+				try { conn.close(); } catch (Exception e) {}			
+			}	
+			%>
 	</div>
+	<% } %>
 </body>
 </html>
