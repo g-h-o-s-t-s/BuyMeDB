@@ -1,9 +1,9 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="utf-8">
 	<title>BuyMe - Account Options</title>
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) {

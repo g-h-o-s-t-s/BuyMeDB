@@ -3,7 +3,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="utf-8">
 <title>BuyMe</title>
 <link rel="stylesheet" href="css/styles.css" />
 </head>

@@ -4,9 +4,9 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="utf-8">
 <title>BuyMe - Your Purchase History</title>
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) { 
