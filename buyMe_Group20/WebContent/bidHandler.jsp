@@ -58,7 +58,7 @@
 			queryPs.setFloat(2, newBid);
 			rs = queryPs.executeQuery();
 			if (rs.next()) {
-				prevBidder = rs.getString("buyer");
+				prevBidder = rs.getString("buyerAccount");
 				prevBid = rs.getFloat("currentBid");
 			}
 			

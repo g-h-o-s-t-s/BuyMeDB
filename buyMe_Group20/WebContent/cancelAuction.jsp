@@ -16,7 +16,7 @@
 
 	<div class="content">
 		<form action="cancelAuctionHandler.jsp" method="POST">
-			<label>Seller</label> <input type="text" name="seller"
+			<label>Seller</label> <input type="text" name="sellerAccount"
 				placeholder="Username" required><br> <label>Enter
 				Your Password</label> <input type="password" name="your_password"
 				placeholder="Enter Password" required> <br> <label>Confirm

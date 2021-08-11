@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
 <title>BuyMe - Search Results</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
@@ -18,74 +16,34 @@
 		<h2>Select at least one search parameter</h2>
 		<form action="searchHandler.jsp" method="GET">
 			<label for="category">Category</label> <select name="category"
-				id="category">
+				id="category" required>
 				<option value="" disabled selected hidden="true">Select
 					category</option>
-				<option value="Dress Shoes">Dress Shoes</option>
-				<option value="Sneakers">Sneakers</option>
-				<option value="Sandals">Sandals</option>
-				<option value="Boots">Boots</option>
+				<option value="In-Ear">In-Ear</option>
+				<option value="On-Ear">On-Ear</option>
+				<option value="Over-Ear">Over-Ear</option>
+				<option value="Wireless">Wireless</option>
 			</select> <br> <label for="brand">Brand</label> <select name="brand"
-				id="brand">
+				id="brand" required>
 				<option value="" disabled selected hidden="true">Select
 					brand</option>
-				<option value="Adidas">Adidas</option>
-				<option value="ALDO">ALDO</option>
-				<option value="Allen Edmonds">Allen Edmonds</option>
-				<option value="Asics">Asics</option>
-				<option value="Clarks">Clarks</option>
-				<option value="Cole Haan">Cole Haan</option>
-				<option value="Converse">Converse</option>
-				<option value="Dr. Martens">Dr. Martens</option>
-				<option value="Ecco">Ecco</option>
-				<option value="Florsheim">Florsheim</option>
-				<option value="J.Crew">J.Crew</option>
-				<option value="Kenneth Cole">Kenneth Cole</option>
-				<option value="New Balance">New Balance</option>
-				<option value="Nike">Nike</option>
-				<option value="Puma">Puma</option>
-				<option value="Red Wing">Red Wing</option>
-				<option value="Reebok">Reebok</option>
-				<option value="Steve Madden">Steve Madden</option>
-				<option value="Timberland">Timberland</option>
-				<option value="UGG">UGG</option>
-				<option value="Vans">Vans</option>
+				<option value="Audio-Technica">Audio-Technica</option>
+				<option value="Beyerdynamic">Beyerdynamic</option>
+				<option value="Bose">Bose</option>
+				<option value="Bowers and Wilkins">Bowers and Wilkins</option>
+				<option value="JBL">JBL</option>
+				<option value="Sennheiser">Sennheiser</option>
+				<option value="Sony">Sony</option>
 				<option value="Other">Other</option>
-			</select> <br> <input type="radio" name="gender" value="Men's" id="mens">
-			<label for="mens">Men's</label> <br> <input type="radio"
-				name="gender" value="Women's" id="womens"> <label
-				for="womens">Women's</label> <br> <input type="radio"
-				name="gender" value="Boys'" id="boys"> <label for="boys">Boys'</label>
-			<br> <input type="radio" name="gender" value="Girls'" id="girls">
-			<label for="girls">Girls'</label> <br> <label for="size">Size</label>
-			<select name="size" id="size">
-				<option value="" disabled selected hidden="true">Select
-					size</option>
-				<option value="4">4</option>
-				<option value="4.5">4.5</option>
-				<option value="5">5</option>
-				<option value="5.5">5.5</option>
-				<option value="6">6</option>
-				<option value="6.5">6.5</option>
-				<option value="7">7</option>
-				<option value="7.5">7.5</option>
-				<option value="8">8</option>
-				<option value="8.5">8.5</option>
-				<option value="9">9</option>
-				<option value="9.5">9.5</option>
-				<option value="10">10</option>
-				<option value="10.5">10.5</option>
-				<option value="11">11</option>
-				<option value="11.5">11.5</option>
-				<option value="12">12</option>
-				<option value="12.5">12.5</option>
-				<option value="13">13</option>
-			</select> <br> <label for="model">Model</label> <input type="text"
-				name="model" id="model" placeholder="Enter model name"> <br>
-
-			<label for="color">Color</label> <input type="text" name="color"
-				id="color" placeholder="Enter color(s)"> <br> <input
-				type="submit" value="Search">
+			</select> 
+			<br> <input type="radio" name="damageCondition" value="Poor" required>
+			Poor <br> <input type="radio" name="damageCondition" value="Fair">
+			Fair <br> <input type="radio" name="damageCondition" value="Like New">
+			Like New <br> <input type="radio" name="damageCondition" value="Original Condition">
+			Original Condition <br> 
+			<br> <label for="color">Color</label> <input type="text"
+				name="color" id="color" placeholder="Enter color(s)" required>
+				<br> <input type="submit" value="Search">
 		</form>
 	</div>
 	<% } %>

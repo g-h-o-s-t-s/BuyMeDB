@@ -27,9 +27,9 @@
 					paramList.add(paramName);
 					//System.out.println(paramList.get(index));
 					//System.out.println(paramValue);
-					if ((paramList.get(index)).equals("gender")) {
-						String genderFixed = paramValue.replace("'", "\\'");
-						searchParams.put(paramList.get(index), genderFixed);
+					if ((paramList.get(index)).equals("damageCondition")) {
+						String damageConditionFixed = paramValue.replace("'", "\\'");
+						searchParams.put(paramList.get(index), damageConditionFixed);
 					} else {				
 						searchParams.put(paramList.get(index), paramValue);
 					}
@@ -54,9 +54,7 @@
 				String condition = null;
 				for (int i = 0; i < searchParams.size(); i++) {
 					// Check for numeric parameter so we can format the SQL query correctly
-					if ((paramList.get(i)).equals("size")) {
-						condition = paramList.get(i) + " LIKE " + searchParams.get(paramList.get(i));
-					} else if ((paramList.get(i)).equals("color")) {
+					if ((paramList.get(i)).equals("color")) {
 						condition = paramList.get(i) + " LIKE \'%" + searchParams.get(paramList.get(i)) + "%\'";
 					} else {
 						condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";	
@@ -83,7 +81,7 @@
 			<%	do { %>
 			<tr>
 				<td><a
-					href="auction.jsp?productId=<%= rs.getInt("productId") %>"> <%= rs.getString("brand") + " " + rs.getString("model") + " " + rs.getString("gender") +  " " + rs.getFloat("size") %>
+					href="auction.jsp?productId=<%= rs.getInt("productId") %>"> <%= rs.getString("brand") + rs.getString("damageCondition") %>
 				</a></td>
 				<td><%= rs.getString("sellerAccount") %></td>
 				<td><%= currency.format(rs.getDouble("price")) %></td>

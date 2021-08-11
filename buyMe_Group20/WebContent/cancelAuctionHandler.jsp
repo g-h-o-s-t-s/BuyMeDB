@@ -13,7 +13,7 @@
 			conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
 
 			int productId = Integer.parseInt(request.getParameter("productId"));
-			String seller = request.getParameter("seller");
+			String seller = request.getParameter("sellerAccount");
 			
 			String delete = "DELETE FROM Product WHERE productId=? AND seller=?";
 			ps1 = conn.prepareStatement(delete);

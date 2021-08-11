@@ -38,8 +38,8 @@
 					String user = (session.getAttribute("user")).toString();
 					
 					String alertQuery = "SELECT * FROM Alerts WHERE userAcc=? AND seen=false";
-		    		String auctionQuery = "SELECT * FROM Product WHERE seller=?";
-		    		String accountQuery = "SELECT * FROM Account WHERE username=?";
+		    		String auctionQuery = "SELECT * FROM Product WHERE sellerAccount=?";
+		    		String accountQuery = "SELECT * FROM UserAccount WHERE username=?";
 		    		
 		    		alertPs = conn.prepareStatement(alertQuery);
 		    		alertPs.setString(1, user);
@@ -91,14 +91,14 @@
 			<%	do { %>
 			<tr>
 				<td><a
-					href="auction.jsp?productId=<%= rs.getInt("productId") %>"> <%= rs.getString("brand") + " " + rs.getString("model") + " " + rs.getString("gender") +  " " + rs.getFloat("size") %>
+					href="auction.jsp?productId=<%= rs.getInt("productId") %>"> <%= rs.getString("brand") + rs.getString("damageCondition")%>
 				</a></td>
 				<td><%= currency.format(rs.getDouble("price")) %></td>
 				<td><%= rs.getString("endDate") %></td>
 			</tr>
 			<%	} while (rs.next()); %>
 		</table>
-		<%	} else if (accountRs.getString("accessLevel") == "END_USER"){ %>
+		<%	} else if (accountRs.getString("accessLevel").equals("END_USER")){ %>
 		<h2>You currently have no items for auction.</h2>
 		<%	}
     		} catch (SQLException e) {

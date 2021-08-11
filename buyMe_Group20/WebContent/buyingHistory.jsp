@@ -49,18 +49,18 @@
 			<%	do { 
    						int productId = rs1.getInt("productId");
    						String itemName = null;
-   						String productQuery = "SELECT brand, model, gender, size FROM Product WHERE productId=?";
+   						String productQuery = "SELECT brand, damageCondition FROM Product WHERE productId=?";
    						ps = conn.prepareStatement(productQuery);
    						ps.setInt(1, productId);
    						rs2 = ps.executeQuery();
    						if (rs2.next()) {
-   							itemName = rs2.getString("brand") + " " + rs2.getString("model") + " " + rs2.getString("gender") +  " " + rs2.getFloat("size");
+   							itemName = rs2.getString("brand") + rs2.getString("damageCondition");
    						} else {
    							itemName = "productId not found";
    						}
    						ps.close();
    						
-   						String sellQuery = "SELECT seller FROM SellingHistory WHERE productId=?";
+   						String sellQuery = "SELECT sellerAccount FROM SellingHistory WHERE productId=?";
    						ps = conn.prepareStatement(sellQuery);
    						ps.setInt(1, productId);
    						rs3 = ps.executeQuery();
@@ -69,7 +69,7 @@
 			<tr>
 				<td><%= itemName %></td>
 				<td><%= currency.format(rs1.getDouble("price")) %></td>
-				<td><%= rs3.getString("seller") %></td>
+				<td><%= rs3.getString("sellerAccount") %></td>
 				<td><%= rs1.getString("date") %></td>
 			</tr>
 			<%	} while (rs1.next()); %>

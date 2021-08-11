@@ -68,11 +68,8 @@
 			<%= rs.getString("category") %></h2>
 		<br> Brand:
 		<%= rs.getString("brand") %>
-		<br> Model:
-		<%= rs.getString("model") %>
-		<br> Size:
-		<%= rs.getString("gender") %>
-		<%= rs.getFloat("size") %>
+		<br> Damage Condition:
+		<%= rs.getString("damageCondition") %>
 		<br> Color:
 		<%= rs.getString("color") %>
 		<br> Seller:
@@ -94,7 +91,7 @@
 					%>
 
 		<b>SOLD TO:</b>
-		<%= winnerRs.getString("buyer") %>
+		<%= winnerRs.getString("buyerAccount") %>
 		for
 		<%= currency.format(winnerRs.getDouble("price")) %>
 		<%	try { winnerRs.close(); } catch (Exception e) {}
@@ -208,7 +205,7 @@
 			</tr>
 			<%	do { %>
 			<tr>
-				<td><%= bids2.getString("buyer") %></td>
+				<td><%= bids2.getString("buyerAccount") %></td>
 				<td><%= currency.format(bids2.getDouble("bid")) %></td>
 			</tr>
 			<%	} while (bids2.next()); %>
@@ -221,10 +218,10 @@
 					}
 				
 					ResultSet similarItems = null;
-					String genderFixed = (rs.getString("gender")).replace("'", "\\'");
+					String damageConditionFixed = (rs.getString("damageCondition")).replace("'", "\\'");
 					String similarQuery = "SELECT * FROM Product WHERE productId!=" + productId
-							+ " AND (brand LIKE \'" + rs.getString("brand") + "\' OR model LIKE \'" + rs.getString("model") 
-							+ "\' OR (size LIKE " + rs.getFloat("size") + " AND gender LIKE \'" + genderFixed + "\'))";
+							+ " AND (brand LIKE \'" + rs.getString("brand") +
+							" AND damageCondition LIKE \'" + damageConditionFixed + "\'))";
 					Statement s = conn.createStatement();
 					similarItems = s.executeQuery(similarQuery);
 					if (similarItems.next()) { 
@@ -241,9 +238,10 @@
 			<tr>
 				<td><a
 					href="auction.jsp?productId=<%= similarItems.getInt("productId") %>">
-						<%= similarItems.getString("brand") + " " + similarItems.getString("model") + " " + similarItems.getString("gender") +  " " + similarItems.getFloat("size") %>
+						<%= similarItems.getString("brand") + " " 
+					+ similarItems.getString("damageCondition") %>
 				</a></td>
-				<td><%= similarItems.getString("seller") %></td>
+				<td><%= similarItems.getString("sellerAccount") %></td>
 				<td><%= currency.format(similarItems.getDouble("price")) %></td>
 				<td><%= similarItems.getString("endDate") %></td>
 			</tr>

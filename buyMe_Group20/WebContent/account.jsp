@@ -13,8 +13,8 @@
 	<div class="content">
 		<h1>Account Options</h1>
 		<ul>
-			<li><a href="wishListView.jsp">View Product Alerts</a></li>
-			<li><a href="wishList.jsp">Add Product Alert</a></li>
+			<li><a href="alertsListView.jsp">View Product Alerts</a></li>
+			<li><a href="alertsList.jsp">Add Product Alert</a></li>
 			<li><a href="bidHistory.jsp">View Bidding History</a></li>
 			<li><a href="sellingHistory.jsp">View Selling History</a></li>
 			<li><a href="buyingHistory.jsp">View Buying History</a></li>

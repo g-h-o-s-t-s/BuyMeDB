@@ -54,28 +54,6 @@
 		<br>
 		<a href="salesReports.jsp">Click here to generate more sales
 			reports.</a>
-		<%	}		    		
-		    	} else if (reportType.equals("earningsPerItem")) {
-		    		query = "SELECT model, SUM(price) FROM Product WHERE sold=true GROUP BY model";
-		    		ps = conn.prepareStatement(query);
-		    		rs = ps.executeQuery();
-		    		if (rs.next()) { %>
-		<h2>Sales Report:</h2>
-		<table>
-			<tr>
-				<th>Model</th>
-				<th>Earnings</th>
-			</tr>
-			<%	do { %>
-			<tr>
-				<td><%= rs.getString("model") %></td>
-				<td><%= currency.format(rs.getDouble("SUM(price)")) %></td>
-			</tr>
-			<%	} while (rs.next()); %>
-		</table>
-		<br>
-		<a href="salesReports.jsp">Click here to generate more sales
-			reports.</a>
 		<%	}
 		    	} else if (reportType.equals("earningsPerItemType")) {
 		    		query = "SELECT category, SUM(price) FROM Product WHERE sold=true GROUP BY category";
@@ -121,30 +99,6 @@
 		<a href="salesReports.jsp">Click here to generate more sales
 			reports.</a>
 		<%	}
-		    	} else if (reportType.equals("bestSelling")) {
-		    		query = "SELECT model, COUNT(model), SUM(price) FROM Product WHERE sold=true GROUP BY model ORDER BY COUNT(model) DESC";
-		    		ps = conn.prepareStatement(query);
-		    		rs = ps.executeQuery();
-		    		if (rs.next()) { %>
-		<h2>Sales Report:</h2>
-		<table>
-			<tr>
-				<th>Model</th>
-				<th>Number Sold</th>
-				<th>Earnings</th>
-			</tr>
-			<%	do { %>
-			<tr>
-				<td><%= rs.getString("model") %></td>
-				<td><%= rs.getInt("COUNT(model)") %></td>
-				<td><%= currency.format(rs.getDouble("SUM(price)")) %></td>
-			</tr>
-			<%	} while (rs.next()); %>
-		</table>
-		<br>
-		<a href="salesReports.jsp">Click here to generate more sales
-			reports.</a>
-		<%	}
 		    	} else if (reportType.equals("bestBuyers")) {
 		    		query = "SELECT buyer, COUNT(buyer), SUM(price) FROM BuyingHistory GROUP BY buyer ORDER BY COUNT(buyer) DESC";
 		    		ps = conn.prepareStatement(query);
@@ -159,7 +113,7 @@
 			</tr>
 			<%	do { %>
 			<tr>
-				<td><%= rs.getString("buyer") %></td>
+				<td><%= rs.getString("buyerAccount") %></td>
 				<td><%= rs.getInt("COUNT(buyer)") %></td>
 				<td><%= currency.format(rs.getDouble("SUM(price)")) %></td>
 			</tr>
