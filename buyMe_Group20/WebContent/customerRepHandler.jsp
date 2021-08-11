@@ -17,7 +17,7 @@
 		String address = request.getParameter("address");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		int accessLevel = 2;
+		String accessLevel = "CUSTOMER_REP";
 		
 		// Check if username already exists in the Account table
 		// if it exists, redirect to registerError.jsp, adding some code to let them know the username is taken already
@@ -44,7 +44,7 @@
 			ps.setString(5, lastName);
 			ps.setString(6, address);
 			ps.setBoolean(7, true);
-			ps.setInt(8, accessLevel);
+			ps.setString(8, accessLevel);
 			
 			int result = 0;
 	        result = ps.executeUpdate();

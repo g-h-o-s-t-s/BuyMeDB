@@ -27,7 +27,7 @@
 				rs = ps.executeQuery();
 				rs.next();
 				
-				if (rs.getInt("accessLevel") != 3) {
+				if (rs.getString("accessLevel") != "CUSTOMER_REP") {
     				response.sendRedirect("index.jsp");
  	    			return;
     			} 

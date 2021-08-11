@@ -7,7 +7,7 @@
 
 
 <title>BuyMe - Add to Wishlist</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) {

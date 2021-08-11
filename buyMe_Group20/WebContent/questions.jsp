@@ -7,7 +7,7 @@
 
 
 <title>Frequently Asked Questions</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
@@ -52,8 +52,8 @@
 			<tr>
 				<td><%= rs.getString("question") %></td>
 				<% if (check.equals(rs.getString("answer"))
-									&& Integer.parseInt((session.getAttribute("accessLevel")).toString()) != 1) { %>
-				<form
+									&& !((session.getAttribute("accessLevel")).toString()).equals("END_USER")) { %>
+				<form>
 					action="answersHandler.jsp?questionId=<%= rs.getInt("questionId") %>"
 					method="POST">
 					<td><textarea type="textarea" name="Answer"></textarea> <input

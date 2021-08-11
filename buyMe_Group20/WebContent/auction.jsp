@@ -7,7 +7,7 @@
 
 
 <title>BuyMe</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) { 
@@ -36,7 +36,7 @@
 				
 					String user = session.getAttribute("user").toString();
 					int productId = Integer.parseInt(request.getParameter("productId"));
-					int access_level = (Integer) session.getAttribute("accessLevel");
+					String access_level = (String) session.getAttribute("accessLevel");
 					String productQuery = "SELECT * FROM Product WHERE productId=?";
 					ps1 = conn.prepareStatement(productQuery);
 					ps1.setInt(1, productId);
@@ -122,7 +122,7 @@
 		<br>
 		<% } %>
 		<!-- Provide option to place bid if current user is not the seller -->
-		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && access_level == 1) {
+		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && access_level == "END_USER") {
 								// Check if user has autobid setup for this product, if no display the following
 								String queryAutoBid = "SELECT * FROM AutoBidding WHERE user=? AND productId=?";
 								autoPs = conn.prepareStatement(queryAutoBid);
@@ -183,7 +183,7 @@
 		<%	} else { %>
 		<h2>You have setup automatic bidding for this auction.</h2>
 		<%	}
-					   } else if (access_level == 2 || access_level == 3) { %>
+					   } else if (access_level == "CUSTOMER_REP" || access_level == "ADMIN") { %>
 		<form
 			action="cancelAuctionHandler.jsp?productId=<%= productId %>&seller=<%= rs.getString("sellerAccount") %>"
 			method="POST">

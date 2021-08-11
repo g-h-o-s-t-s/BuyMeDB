@@ -7,7 +7,7 @@
 <html>
 <head>
 	<title>BuyMe Home</title>
-	<link rel="stylesheet" href="style.css?v=1.0" />
+	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) { 
@@ -37,7 +37,7 @@
 					NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
 					String user = (session.getAttribute("user")).toString();
 					
-					String alertQuery = "SELECT * FROM Alerts WHERE user=? AND seen=false";
+					String alertQuery = "SELECT * FROM Alerts WHERE userAcc=? AND seen=false";
 		    		String auctionQuery = "SELECT * FROM Product WHERE seller=?";
 		    		String accountQuery = "SELECT * FROM Account WHERE username=?";
 		    		
@@ -65,12 +65,12 @@
 		    		accountPs.setString(1, user);
 		    		accountRs = accountPs.executeQuery();
 		    		accountRs.next();
-		    		// Display admin commands if access level is 3
-		    		if (accountRs.getInt("accessLevel") == 3) { %>
+		    		// Display admin commands
+		    		if (accountRs.getString("accessLevel") == "ADMIN") { %>
 		<jsp:include page="adminDashboard.jsp" />
 
 		<%	} 
-		    		if (accountRs.getInt("accessLevel") == 2) { %>
+		    		if (accountRs.getString("accessLevel") == "CUSTOMER_REP") { %>
 		<jsp:include page="customerRepDashboard.jsp" />
 		<%  }
 		    		
@@ -79,7 +79,7 @@
 		    		rs = ps.executeQuery();
 		    		
 		   			
-		   			if (rs.next() && accountRs.getInt("accessLevel") == 1) { 
+		   			if (rs.next() && accountRs.getString("accessLevel") == "END_USER") { 
 		   		%>
 		<h2>Your created auctions:</h2>
 		<table>
@@ -98,7 +98,7 @@
 			</tr>
 			<%	} while (rs.next()); %>
 		</table>
-		<%	} else if (accountRs.getInt("accessLevel") == 1){ %>
+		<%	} else if (accountRs.getString("accessLevel") == "END_USER"){ %>
 		<h2>You currently have no items for auction.</h2>
 		<%	}
     		} catch (SQLException e) {

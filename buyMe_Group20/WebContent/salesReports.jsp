@@ -5,14 +5,14 @@
 
 
 <title>BuyMe - Sales Reports</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) {
     		response.sendRedirect("login.jsp");
        } else {
-    	   int accessLevel = Integer.parseInt(session.getAttribute("accessLevel").toString());
-    	   if (accessLevel != 3) {
+    	   String accessLevel = session.getAttribute("accessLevel").toString();
+    	   if (!accessLevel.equals("ADMIN")) {
 				response.sendRedirect("index.jsp");
 				return;
     	   } %>

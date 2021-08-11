@@ -7,7 +7,7 @@
 
 
 <title>Frequently Asked Questions</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>

@@ -7,7 +7,7 @@
 
 
 <title>BuyMe - Your Selling History</title>
-<link rel="stylesheet" href="style.css?v=1.0" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<% if(session.getAttribute("user") == null) { 
