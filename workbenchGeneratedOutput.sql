@@ -194,7 +194,6 @@ CREATE TABLE `product` (
   `productId` int NOT NULL AUTO_INCREMENT,
   `category` varchar(40) NOT NULL,
   `brand` varchar(40) DEFAULT NULL,
-  `productDescription` varchar(40) DEFAULT NULL,
   `damageCondition` enum('Poor','Fair','Like New','Original Condition','NA') NOT NULL,
   `color` varchar(40) DEFAULT NULL,
   `sellerAccount` varchar(40) NOT NULL,
@@ -279,7 +278,7 @@ DROP TABLE IF EXISTS `useraccount`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `useraccount` (
   `username` varchar(40) NOT NULL,
-  `pass` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(100) NOT NULL,
   `firstName` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `lastName` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
@@ -296,6 +295,7 @@ CREATE TABLE `useraccount` (
 
 LOCK TABLES `useraccount` WRITE;
 /*!40000 ALTER TABLE `useraccount` DISABLE KEYS */;
+INSERT INTO `useraccount` VALUES ('rep115932','HW)<;46jE<E*g,#','rep115932@buyme.com','John','Doe','100 Ryders Ln, Milltown, NJ 08850',1,'CUSTOMER_REP'),('root','UN5AW!]x9K{[bP','admin@buyme.com','Admin','Istrator','57 US Highway 1, New Brunswick, NJ 08901',1,'ADMIN');
 /*!40000 ALTER TABLE `useraccount` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -308,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-08 20:37:49
+-- Dump completed on 2021-08-11 15:55:04

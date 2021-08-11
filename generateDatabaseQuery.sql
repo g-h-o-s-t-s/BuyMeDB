@@ -18,7 +18,7 @@ CREATE TABLE UserAccount(
     lastName varchar(40) BINARY NOT NULL,
     address varchar(100) NOT NULL,
     isActive boolean NOT NULL,
-    accessLevel ENUM('END_USER', 'CUSTOMER_REP', 'ADMIN') NOT NULL,
+    accessLevel ENUM("END_USER", "CUSTOMER_REP", "ADMIN") NOT NULL,
     primary key(username)
 );
 
@@ -37,8 +37,7 @@ CREATE TABLE Product(
 	productId int AUTO_INCREMENT,
 	category varchar(40) NOT NULL,
 	brand varchar(40),
-	productDescription varchar(40),
-    damageCondition ENUM('Poor', 'Fair', 'Like New', 'Original Condition', 'N\A') NOT NULL,
+    damageCondition ENUM("Poor", "Fair", "Like New", "Original Condition", "N\A") NOT NULL,
     color varchar(40),
 	sellerAccount varchar(40) NOT NULL,
     reservePrice decimal(10, 2) NOT NULL,
@@ -180,10 +179,10 @@ CREATE TABLE AutoBidder(
 );
 
 INSERT INTO UserAccount VALUES 
-    ('root', 'UN5AW!]x9K{[bP', 'admin@buyme.com', 'Admin', 'Istrator', 
-    '57 US Highway 1, New Brunswick, NJ 08901', true, 'ADMIN'),
-    ('rep115932', 'HW)<;46jE<E*g,#', 'rep115932@buyme.com', 'John', 'Doe',
-    '100 Ryders Ln, Milltown, NJ 08850', true, 'CUSTOMER_REP');
+    ("root", "UN5AW!]x9K{[bP", "admin@buyme.com", "Admin", "Istrator", 
+    "57 US Highway 1, New Brunswick, NJ 08901", true, "ADMIN"),
+    ("rep115932", "HW)<;46jE<E*g,#", "rep115932@buyme.com", "John", "Doe",
+    "100 Ryders Ln, Milltown, NJ 08850", true, "CUSTOMER_REP");
 
 # Use TRIGGERs to have a Procedure that fires upon certain event(s) occuring.
 /* 
@@ -204,8 +203,8 @@ DELIMITER !!!
 		IF NEW.price < 0
 		THEN
             BEGIN
-                SIGNAL SQLSTATE '45000' #generic user-defined error code
-                SET MESSAGE_TEXT = 'ERROR - Attempted to insert negatively priced product.';
+                SIGNAL SQLSTATE "45000" #generic user-defined error code
+                SET MESSAGE_TEXT = "ERROR - Attempted to insert negatively priced product.";
             END;
         ELSEIF (EXISTS (
             # Look for duplicate ids in current Product table, if any.
@@ -214,14 +213,14 @@ DELIMITER !!!
 			WHERE currentProduct.productId = NEW.productId)
         ) THEN
             BEGIN
-                SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'ERROR - Attempted to insert product with duplicate productID.';
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT = "ERROR - Attempted to insert product with duplicate productID.";
             END;
 		ELSEIF (NEW.startDate > NEW.endDate)
 		THEN
 			BEGIN
-				SIGNAL SQLSTATE '45000' 
-                SET MESSAGE_TEXT = 'ERROR - Auction endDate precedes startDate.';
+				SIGNAL SQLSTATE "45000" 
+                SET MESSAGE_TEXT = "ERROR - Auction endDate precedes startDate.";
             END;
 		END IF;
         
@@ -230,7 +229,7 @@ DELIMITER !!!
         THEN
 			BEGIN
 				INSERT INTO Alerts (user, message)
-                SELECT user, 'ALERT - A product in your AlertsList has been listed.' FROM AlertsList
+                SELECT user, "ALERT - A product in your AlertsList has been listed." FROM AlertsList
                 WHERE category = NEW.category AND brand = NEW.brand 
                     AND damageCondition = NEW.damageCondition AND color = NEW.color;
             END;
@@ -306,8 +305,8 @@ DELIMITER !!!
 		ELSEIF (NEW.currentBid <= OLD.currentBid)
 		THEN
 			BEGIN
-				SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'ERROR - New bid amount must be greater than the current one.';
+				SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT = "ERROR - New bid amount must be greater than the current one.";
 			END;
 		END IF;
 	END; !!!
@@ -322,8 +321,8 @@ DELIMITER !!!
 		IF (NEW.currentBid <= (SELECT p.price FROM Product p WHERE p.productId = NEW.productId))
         THEN 
 			BEGIN
-				SIGNAL SQLSTATE '45000' 
-                SET MESSAGE_TEXT = 'ERROR - New bid amount must be greater than default price.';
+				SIGNAL SQLSTATE "45000" 
+                SET MESSAGE_TEXT = "ERROR - New bid amount must be greater than default price.";
 			END;
 		ELSE #IF (NEW.currentBid > (SELECT p.price FROM Product p WHERE p.productId = NEW.productId))THEN
 			BEGIN
@@ -353,11 +352,11 @@ DROP TRIGGER IF EXISTS adminChecker;
 DELIMITER !!!
 	CREATE TRIGGER adminChecker BEFORE DELETE ON UserAccount FOR EACH ROW
     BEGIN
-		IF OLD.accessLevel = 'ADMIN'
+		IF OLD.accessLevel = "ADMIN"
         THEN
 			BEGIN
-				SIGNAL SQLSTATE '45000' 
-                SET MESSAGE_TEXT = 'ERROR - Deletion of the Admin account is forbidden.';
+				SIGNAL SQLSTATE "45000" 
+                SET MESSAGE_TEXT = "ERROR - Deletion of the Admin account is forbidden.";
             END;
 		END IF; 
 	END; !!!
