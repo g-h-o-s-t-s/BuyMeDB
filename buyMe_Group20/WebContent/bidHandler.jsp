@@ -89,7 +89,7 @@
 				}
 				
 				// Automatically outbid this new bid if the prev bidder had auto-bid setup
-				if (prevBidder!= null && !prevBidder.equals(bidder) && prevHasAuto == true) {
+				if (prevBidder!= null && !prevBidder.equals(bidder) && prevHasAuto) {
 					String insertAutoBid = "INSERT INTO Bid VALUES (?, ?, ?, ?)";
 					autoPs = conn.prepareStatement(insertNewBid);
 					autoPs.setInt(1, productId);
@@ -125,8 +125,8 @@
 				}
 				
 				// Alert the person who got outbid (if that person is not the one who just placed the bid)
-				if ((prevBidder!= null && !prevBidder.equals(bidder) && prevHasAuto == false) || 
-					(prevBidder!= null && !prevBidder.equals(bidder) && prevHasAuto == true && prevBid >= maxPrice)) {
+				if (prevBidder != null && !prevBidder.equals(bidder) && !prevHasAuto
+                        || prevBidder != null && !prevBidder.equals(bidder) && prevBid >= maxPrice) {
 					String outBidAlert = "INSERT INTO Alerts (user, message) VALUES (?, ?)";
 					alertPs = conn.prepareStatement(outBidAlert);
 					alertPs.setString(1, prevBidder);

@@ -36,8 +36,8 @@
 			ps.setString(2, category);
 			ps.setString(3, brand);
 			ps.setString(4, damageCondition);
-			ps.setString(7, color);
-			ps.setFloat(8, maxPrice);
+			ps.setString(5, color);
+			ps.setFloat(6, maxPrice);
 			
 			int result = 0;
 	        result = ps.executeUpdate();

@@ -33,7 +33,7 @@
 				&& startingPrice >= 0.0f) {
 			
 		// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO Product (category, brand, damageCondition, color, sellerAccount, min_price, price, sold, startDate, endDate)"
+			String insert = "INSERT INTO Product (category, brand, damageCondition, color, sellerAccount, minPrice, price, sold, startDate, endDate)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 		
@@ -41,14 +41,14 @@
 			//ps.setString(1, name);
 			ps.setString(1, category);
 			ps.setString(2, brand);
-			ps.setString(4, damageCondition);
-			ps.setString(6, color);
-			ps.setString(7, sellerAccount);
-			ps.setFloat(8, minPrice);
-			ps.setFloat(9, startingPrice);			
-			ps.setBoolean(10, false);
-			ps.setString(11, startDate);
-			ps.setString(12, endDate);
+			ps.setString(3, damageCondition);
+			ps.setString(4, color);
+			ps.setString(5, sellerAccount);
+			ps.setFloat(6, minPrice);
+			ps.setFloat(7, startingPrice);
+			ps.setBoolean(8, false);
+			ps.setString(9, startDate);
+			ps.setString(10, endDate);
 
 			int result = 0;
 	        result = ps.executeUpdate();

@@ -75,7 +75,7 @@
 		ps.setString(3, email);
 		ps.setString(4, address);
 		// Change password if the new password is different and is not empty/null
-		if (newPassword.isEmpty() || newPassword == null) {
+		if (newPassword.isEmpty()) {
 			ps.setString(5, currPassword);
 		} else {
 			ps.setString(5, newPassword);

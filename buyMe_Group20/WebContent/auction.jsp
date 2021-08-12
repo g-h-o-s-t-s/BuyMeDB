@@ -81,7 +81,7 @@
 		<% 
 					Locale locale = new Locale("en", "US");
 					NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
-					if (rs.getBoolean("sold") == true) { 
+					if (rs.getBoolean("sold")) {
 						// Query to get the winner of the auction
 						String winner = "SELECT * FROM BuyingHistory WHERE productId=?";
 						PreparedStatement winnerPs = conn.prepareStatement(winner);
@@ -94,7 +94,7 @@
 		<%= winnerRs.getString("buyerAccount") %>
 		for
 		<%= currency.format(winnerRs.getDouble("price")) %>
-		<%	try { winnerRs.close(); } catch (Exception e) {}
+		<%	try { winnerRs.close(); } catch (Exception ignored) {}
 						try { winnerPs.close(); } catch (Exception e) {}
 					} else {
 						double price = rs.getDouble("price");
@@ -111,7 +111,8 @@
 		Starting Bid:
 		<%= currency.format(price) %>
 		<br>
-		<%	} else { 
+		<%	} else {
+						    //set false again
 							isStartingBid = false; 
 					%>
 		Current bid:
@@ -119,7 +120,7 @@
 		<br>
 		<% } %>
 		<!-- Provide option to place bid if current user is not the seller -->
-		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && access_level == "END_USER") {
+		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && access_level.equals("END_USER")) {
 								// Check if user has autobid setup for this product, if no display the following
 								String queryAutoBid = "SELECT * FROM AutoBidding WHERE user=? AND productId=?";
 								autoPs = conn.prepareStatement(queryAutoBid);
@@ -180,7 +181,7 @@
 		<%	} else { %>
 		<h2>You have setup automatic bidding for this auction.</h2>
 		<%	}
-					   } else if (access_level == "CUSTOMER_REP" || access_level == "ADMIN") { %>
+					   } else if (access_level.equals("CUSTOMER_REP") || access_level.equals("ADMIN")) { %>
 		<form
 			action="cancelAuctionHandler.jsp?productId=<%= productId %>&seller=<%= rs.getString("sellerAccount") %>"
 			method="POST">

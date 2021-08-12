@@ -66,11 +66,11 @@
 		    		accountRs = accountPs.executeQuery();
 		    		accountRs.next();
 		    		// Display admin commands
-		    		if (accountRs.getString("accessLevel") == "ADMIN") { %>
+		    		if (accountRs.getString("accessLevel").equals("ADMIN")) { %>
 		<jsp:include page="adminDashboard.jsp" />
 
 		<%	} 
-		    		if (accountRs.getString("accessLevel") == "CUSTOMER_REP") { %>
+		    		if (accountRs.getString("accessLevel").equals("CUSTOMER_REP")) { %>
 		<jsp:include page="customerRepDashboard.jsp" />
 		<%  }
 		    		
@@ -79,7 +79,7 @@
 		    		rs = ps.executeQuery();
 		    		
 		   			
-		   			if (rs.next() && accountRs.getString("accessLevel") == "END_USER") { 
+		   			if (rs.next() && accountRs.getString("accessLevel").equals("END_USER")) {
 		   		%>
 		<h2>Your created auctions:</h2>
 		<table>

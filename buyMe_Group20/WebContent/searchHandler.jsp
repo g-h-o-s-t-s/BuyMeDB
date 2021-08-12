@@ -15,7 +15,7 @@
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
 
-		<%	
+		<%
 			ArrayList<String> paramList = new ArrayList<String>();
 			Map<String, String> searchParams = new HashMap<String, String>();
 			int index = 0;
@@ -62,8 +62,8 @@
 					// Only want to include AND when we have more than one parameter
 					if (i == 0) {
 						searchQuery.append(condition);	
-					} else if (i > 0) {
-						searchQuery.append(" AND " + condition);
+					} else {
+						searchQuery.append(" AND ").append(condition);
 					}	
 				}
 				//System.out.println(searchQuery);
