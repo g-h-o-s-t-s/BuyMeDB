@@ -38,7 +38,7 @@
 			//System.out.println("MaxBid = " + maxBid);
 			float increment = Float.parseFloat(request.getParameter("bidIncrement"));
 			//System.out.println("Increment = " + increment);
-			String setupAutoBid = "INSERT INTO AutoBidding (user, productId, max_price, incremental) VALUES (?, ?, ?, ?)";
+			String setupAutoBid = "INSERT INTO AutoBidder (user, productId, maxPrice, incremental) VALUES (?, ?, ?, ?)";
 			autoPs = conn.prepareStatement(setupAutoBid);
 			autoPs.setString(1, bidder);
 			autoPs.setInt(2, productId);
@@ -71,11 +71,11 @@
 			if (deleteResult < 1) {
 				response.sendRedirect("error.jsp"); // This should never happen
 			} else {
-				// Query the AutoBidding table to see if prevBidder & productId appear in a tuple
+				// Query the AutoBidder table to see if prevBidder & productId appear in a tuple
 				boolean prevHasAuto;
 				float increment = 0;
 				float maxPrice = 0;
-				String queryAutoBid = "SELECT * FROM AutoBidding WHERE user=? AND productId=?";
+				String queryAutoBid = "SELECT * FROM AutoBidder WHERE user=? AND productId=?";
 				autoPs = conn.prepareStatement(queryAutoBid);
 				autoPs.setString(1, prevBidder);
 				autoPs.setInt(2, productId);
@@ -83,7 +83,7 @@
 				if (autoRs.next()) {
 					prevHasAuto = true;
 					increment = autoRs.getFloat("incremental");
-					maxPrice = autoRs.getFloat("max_price");
+					maxPrice = autoRs.getFloat("maxPrice");
 				} else {
 					prevHasAuto = false;
 				}
@@ -146,8 +146,8 @@
 		out.print("<p>Error connecting to MYSQL server.</p>");
 	    e.printStackTrace();
 	} finally {
-		try { ps1.close(); } catch (Exception e) {}
-		try { ps2.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+		try { ps1.close(); } catch (Exception ignored) {}
+		try { ps2.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
 	}
 %>

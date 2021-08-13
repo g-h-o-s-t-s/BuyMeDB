@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) { 
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -34,7 +34,7 @@
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
 					conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
 				
-					String user = session.getAttribute("user").toString();
+					String user = session.getAttribute("userAccount").toString();
 					int productId = Integer.parseInt(request.getParameter("productId"));
 					String access_level = (String) session.getAttribute("accessLevel");
 					String productQuery = "SELECT * FROM Product WHERE productId=?";
@@ -95,7 +95,7 @@
 		for
 		<%= currency.format(winnerRs.getDouble("price")) %>
 		<%	try { winnerRs.close(); } catch (Exception ignored) {}
-						try { winnerPs.close(); } catch (Exception e) {}
+						try { winnerPs.close(); } catch (Exception ignored) {}
 					} else {
 						double price = rs.getDouble("price");
 						double minPrice = price + 0.01;
@@ -119,10 +119,10 @@
 		<%= currency.format(price) %>
 		<br>
 		<% } %>
-		<!-- Provide option to place bid if current user is not the seller -->
-		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && access_level.equals("END_USER")) {
+		<!-- Provide option to place bid if current user is not the sellerAccount -->
+		<% if (!session.getAttribute("userAccount").equals(rs.getString("sellerAccount")) && access_level.equals("END_USER")) {
 								// Check if user has autobid setup for this product, if no display the following
-								String queryAutoBid = "SELECT * FROM AutoBidding WHERE user=? AND productId=?";
+								String queryAutoBid = "SELECT * FROM AutoBidder WHERE userAcc=? AND productId=?";
 								autoPs = conn.prepareStatement(queryAutoBid);
 								autoPs.setString(1, user);
 								autoPs.setInt(2, productId);
@@ -183,7 +183,7 @@
 		<%	}
 					   } else if (access_level.equals("CUSTOMER_REP") || access_level.equals("ADMIN")) { %>
 		<form
-			action="cancelAuctionHandler.jsp?productId=<%= productId %>&seller=<%= rs.getString("sellerAccount") %>"
+			action="cancelAuctionHandler.jsp?productId=<%= productId %>&sellerAccount=<%= rs.getString("sellerAccount") %>"
 			method="POST">
 			<br>
 			<input type="submit" value="Delete auction">
@@ -250,20 +250,20 @@
 		</table>
 		<%	} else { %>
 		<br>
-		<h3>There are no similar items on auction.</h3>
+		<h3>There are no similar items in the auction.</h3>
 		<%	} 							
 				} catch(SQLException e) {
 					out.print("<p>Error connecting to MYSQL server.</p>");
 			        e.printStackTrace();
 				} finally {
-					try { rs.close(); } catch (Exception e) {}
-					try { bids1.close(); } catch (Exception e) {}
-					try { bids2.close(); } catch (Exception e) {}
-					try { ps1.close(); } catch (Exception e) {}
-					try { ps2.close(); } catch (Exception e) {}
-					try { ps3.close(); } catch (Exception e) {}
-					try { autoPs.close(); } catch (Exception e) {}
-			        try { conn.close(); } catch (Exception e) {}
+					try { rs.close(); } catch (Exception ignored) {}
+					try { bids1.close(); } catch (Exception ignored) {}
+					try { bids2.close(); } catch (Exception ignored) {}
+					try { ps1.close(); } catch (Exception ignored) {}
+					try { ps2.close(); } catch (Exception ignored) {}
+					try { ps3.close(); } catch (Exception ignored) {}
+					try { autoPs.close(); } catch (Exception ignored) {}
+			        try { conn.close(); } catch (Exception ignored) {}
 				}
 			%>
 	</div>

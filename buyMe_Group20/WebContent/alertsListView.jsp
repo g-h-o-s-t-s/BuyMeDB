@@ -6,11 +6,11 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - View Wishlist</title>
+<title>BuyMe - View AlertsList</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) {
+	<% if(session.getAttribute("userAccount") == null) {
     	 	response.sendRedirect("login.jsp");
         } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -23,7 +23,7 @@
     		try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
-				String query = "SELECT * FROM WishList WHERE user=?";
+				String query = "SELECT * FROM AlertsList WHERE userAcc=?";
 				String user = (session.getAttribute("user")).toString();
 				Locale locale = new Locale("en", "US");
 				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
@@ -32,7 +32,7 @@
 				ps.setString(1, user);
 				rs = ps.executeQuery();
 				if (rs.next()) { %>
-		<h2>Your Wishlist</h2>
+		<h2>Your AlertsList</h2>
 		<table>
 			<tr>
 				<th>Category</th>
@@ -47,12 +47,12 @@
 				<td><%= rs.getString("brand") %></td>
 				<td><%= rs.getString("damageCondition") %></td>
 				<td><%= rs.getString("color") %></td>
-				<td><%= currency.format(rs.getFloat("max_price")) %></td>
+				<td><%= currency.format(rs.getFloat("maxPrice")) %></td>
 			</tr>
 			<%	} while (rs.next()); %>
 		</table>
 		<%	} else { %>
-		<h2>You have no items in your wishlist.</h2>
+		<h2>You have no items in your AlertsList.</h2>
 		<%	}
     		} catch (SQLException e) {
     			out.print("<p>Failure to connect to MYSQL server.</p>");
@@ -60,13 +60,13 @@
     		} finally {
     			try { 
     				rs.close(); 
-    				} catch (Exception e) {} 
+    				} catch (Exception ignored) {}
     			try { 
     				ps.close(); 
-    				} catch (Exception e) {} 
+    				} catch (Exception ignored) {}
 				try { 
 					conn.close(); 
-					} catch (Exception e) {}
+					} catch (Exception ignored) {}
     		} %>
 	</div>
 	<% } %>

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) {
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { 
     	   	String accessLevel = session.getAttribute("accessLevel").toString();
@@ -78,7 +78,7 @@
 			reports.</a>
 		<%	}
 		    	} else if (reportType.equals("earningsPerEndUser")) {
-		    		query = "SELECT seller, SUM(price) FROM Product WHERE sold=true GROUP BY seller";
+		    		query = "SELECT sellerAccount, SUM(price) FROM Product WHERE sold=true GROUP BY sellerAccount";
 		    		ps = conn.prepareStatement(query);
 		    		rs = ps.executeQuery();
 		    		if (rs.next()) { %>
@@ -100,7 +100,7 @@
 			reports.</a>
 		<%	}
 		    	} else if (reportType.equals("bestBuyers")) {
-		    		query = "SELECT buyer, COUNT(buyer), SUM(price) FROM BuyingHistory GROUP BY buyer ORDER BY COUNT(buyer) DESC";
+		    		query = "SELECT buyerAccount, COUNT(buyerAccount), SUM(price) FROM BuyingHistory GROUP BY buyerAccount ORDER BY COUNT(buyerAccount) DESC";
 		    		ps = conn.prepareStatement(query);
 		    		rs = ps.executeQuery();
 		    		if (rs.next()) { %>
@@ -114,7 +114,7 @@
 			<%	do { %>
 			<tr>
 				<td><%= rs.getString("buyerAccount") %></td>
-				<td><%= rs.getInt("COUNT(buyer)") %></td>
+				<td><%= rs.getInt("COUNT(buyerAccount)") %></td>
 				<td><%= currency.format(rs.getDouble("SUM(price)")) %></td>
 			</tr>
 			<%	} while (rs.next()); %>
@@ -132,9 +132,9 @@
 				out.print("<p>Error connecting to MYSQL server.</p>");
 			    e.printStackTrace();
 			} finally {
-				try { rs.close(); } catch (Exception e) {}
-				try { ps.close(); } catch (Exception e) {}
-		        try { conn.close(); } catch (Exception e) {}
+				try { rs.close(); } catch (Exception ignored) {}
+				try { ps.close(); } catch (Exception ignored) {}
+		        try { conn.close(); } catch (Exception ignored) {}
 			}
 	    %>
 	</div>

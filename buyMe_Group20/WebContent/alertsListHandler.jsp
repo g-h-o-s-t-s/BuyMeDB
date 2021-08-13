@@ -17,7 +17,7 @@
 		String damageCondition = request.getParameter("damageCondition");
 		String color = request.getParameter("color");
 		String user = (session.getAttribute("user")).toString();
-		float maxPrice = Float.parseFloat(request.getParameter("max_price"));
+		float maxPrice = Float.parseFloat(request.getParameter("maxPrice"));
 		
 		// Make sure all the fields are entered
 		if(category != null  && !category.isEmpty()
@@ -26,7 +26,7 @@
 				&& maxPrice >= 0.0f) {
 			
 		// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO WishList (user, category, brand, damageCondition, color, max_price)"
+			String insert = "INSERT INTO AlertsList (userAcc, category, brand, damageCondition, color, maxPrice)"
 					+ "VALUES(?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert);
 		
@@ -42,11 +42,11 @@
 			int result = 0;
 	        result = ps.executeUpdate();
 	        if (result < 1) {
-	        	out.println("Error: Failed to add item to wishlist.");
+	        	out.println("Error: Failed to add item to AlertsList.");
 	        } else { %>
 <jsp:include page="alertsListView.jsp" />
 <div class="content">
-	<h2>Successfully added item to wishlist.</h2>
+	<h2>Successfully added item to AlertsList.</h2>
 </div>
 <% }
 		} else {
@@ -57,8 +57,8 @@
         response.sendRedirect("createAuctionError.jsp"); // MySql error such as Start Date before End Date
         e.printStackTrace();
     } finally {
-        try { ps.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+        try { ps.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
     }
 
 %>

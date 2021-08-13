@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-	<title>BuyMe - Account Options</title>
+	<title>BuyMe - UserAccount Options</title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) {
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
-		<h1>Account Options</h1>
+		<h1>UserAccount Options</h1>
 		<ul>
 			<li><a href="alertsListView.jsp">View Product Alerts</a></li>
 			<li><a href="alertsList.jsp">Add Product Alert</a></li>

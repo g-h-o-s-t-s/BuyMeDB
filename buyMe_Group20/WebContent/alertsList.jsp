@@ -6,18 +6,18 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Add to Wishlist</title>
+<title>BuyMe - Add to AlertsList</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) {
+	<% if(session.getAttribute("userAccount") == null) {
     	 	response.sendRedirect("login.jsp");
         } else { %>
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
-		<h2>Specify Item for Wishlist</h2>
+		<h2>Specify Item for AlertsList</h2>
 		<form action="alertsListHandler.jsp" method="POST">
-			<label for="category">Category</label> <select name="category"
+			<%--@declare id="starting_price"--%><label for="category">Category</label> <select name="category"
 				id="category" required>
 				<option value="" disabled selected hidden="true">Select
 					category</option>
@@ -46,7 +46,7 @@
 			<br> <label for="color">Color</label> <input type="text"
 				name="color" id="color" placeholder="Enter color(s)" required>
 			<br> <label for="starting_price">Max Price</label> <input
-				type="number" step="0.01" name="max_price" placeholder="0.00"
+				type="number" step="0.01" name="maxPrice" placeholder="0.00"
 				min="0.00" required> <br> <input type="submit"
 				value="Submit">
 		</form>

@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if (session.getAttribute("user") == null) { 
+	<% if (session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -105,11 +105,11 @@
 				out.print("<p>Error connecting to MYSQL server.</p>");
 			    e.printStackTrace();
 			} finally {
-				try { rs.close(); } catch (Exception e) {} 
-				try { accountRs.close(); } catch (Exception e) {} 
-				try { accountPs.close(); } catch (Exception e) {} 
-				try { ps.close(); } catch (Exception e) {} 
-				try { conn.close(); } catch (Exception e) {}			
+				try { rs.close(); } catch (Exception ignored) {}
+				try { accountRs.close(); } catch (Exception ignored) {}
+				try { accountPs.close(); } catch (Exception ignored) {}
+				try { ps.close(); } catch (Exception ignored) {}
+				try { conn.close(); } catch (Exception ignored) {}
 			}	
 			%>
 	</div>

@@ -20,8 +20,8 @@
 		String newPassword = request.getParameter("new_password");
 		String confirmNewPassword = request.getParameter("confirm_new_password");
 	
-		// Get the user's row from Account table
-		String validation = "SELECT password FROM Account WHERE username=?";
+		// Get the user's row from UserAccount table
+		String validation = "SELECT password FROM UserAccount WHERE username=?";
 		pwPs = conn.prepareStatement(validation);
 		pwPs.setString(1, user);
 		rs = pwPs.executeQuery();
@@ -58,16 +58,15 @@
 <jsp:include page="accountSettings.jsp" flush="true" />
 <div class="content center">
 	<h1>
-		Error: Failed to confirm new password. <br> Make sure you enter
-		it correctly in both fields.
+		Error: Failed to confirm new password.
 	</h1>
 </div>
 <%		return;
 		} %>
 
 <%	
-		String updateAccount = "UPDATE Account " 
-				+ "SET first_name=?, last_name=?, email=?, address=?, password=? "
+		String updateAccount = "UPDATE UserAccount "
+				+ "SET firstName=?, lastName=?, email=?, address=?, password=? "
 				+ "WHERE username=?";
 		ps = conn.prepareStatement(updateAccount);
 		ps.setString(1, firstName);
@@ -100,9 +99,9 @@
 		out.print("<p>Error connecting to MYSQL server.</p>");
 	    e.printStackTrace();
 	} finally {
-		try { rs.close(); } catch (Exception e) {}
-		try { ps.close(); } catch (Exception e) {}
-		try { pwPs.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+		try { rs.close(); } catch (Exception ignored) {}
+		try { ps.close(); } catch (Exception ignored) {}
+		try { pwPs.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
 	}
 %>

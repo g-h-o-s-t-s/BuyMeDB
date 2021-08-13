@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) { 
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -14,7 +14,7 @@
 		<h2>Oops! Something went wrong.</h2>
 		<p>
 			Sorry,
-			<%=session.getAttribute("user")%>, <a href="index.jsp">click here
+			<%=session.getAttribute("userAccount")%>, <a href="index.jsp">click here
 				to return to the home page.</a>
 		</p>
 	</div>

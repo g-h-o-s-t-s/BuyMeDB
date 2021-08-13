@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) { 
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -27,7 +27,7 @@
     		try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
-				String accountQuery = "SELECT * FROM Account WHERE username=?";
+				String accountQuery = "SELECT * FROM UserAccount WHERE username=?";
 				ps = conn.prepareStatement(accountQuery);
 				ps.setString(1, (session.getAttribute("user")).toString());
 				rs = ps.executeQuery();
@@ -39,8 +39,7 @@
 					address = rs.getString("address");
 					oldPassword = rs.getString("password");
 				} else {
-					// Occurs if no row has username = current session's username
-					// Should never happen, but just in case
+					// If no record holds current session's username, failsafe
 					response.sendRedirect("error.jsp");
 					return;
 				}
@@ -49,12 +48,11 @@
 				out.print("<p>Error connecting to MYSQL server.</p>");
 		        e.printStackTrace();
 			} finally {
-				try { rs.close(); } catch (Exception e) {}
-				try { ps.close(); } catch (Exception e) {}
-				try { conn.close(); } catch (Exception e) {}
+				try { rs.close(); } catch (Exception ignored) {}
+				try { ps.close(); } catch (Exception ignored) {}
+				try { conn.close(); } catch (Exception ignored) {}
 			}
     	%>
-
 
 	<div class="content">
 		<form action="accountUpdate.jsp" method="POST">
@@ -73,10 +71,8 @@
 				placeholder="New Password"> <br> <label>Confirm
 				New Password</label> <input type="password" name="confirm_new_password"
 				placeholder="Confirm Password"> <br> <input
-				type="submit" value="Update Account Settings">
+				type="submit" value="Update UserAccount Settings">
 		</form>
-
-
 	</div>
 	<% } %>
 </body>

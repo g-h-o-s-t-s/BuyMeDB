@@ -16,7 +16,7 @@
 		String password = request.getParameter("password");
 		
 		if (username != null && password != null) {
-			String validation = "SELECT * FROM Account WHERE username=?";
+			String validation = "SELECT * FROM UserAccount WHERE username=?";
 			ps = conn.prepareStatement(validation);
 			ps.setString(1, username);
 			
@@ -43,13 +43,13 @@
 			return;
 		}
 	
-	} catch (Exception e) {
+	} catch (Exception ignored) {
         out.print("<p>Error connecting to MYSQL server.</p>");
         e.printStackTrace();
     } finally {
-    	try { rs.close(); } catch (Exception e) {}
-        try { ps.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+    	try { rs.close(); } catch (Exception ignored) {}
+        try { ps.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
     }
 
 %>

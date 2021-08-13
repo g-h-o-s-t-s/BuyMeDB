@@ -40,8 +40,8 @@
 	        out.print("<p>Error connecting to MYSQL server.</p>" + e);
 	        e.printStackTrace();
 	    } finally {
-	        try { ps.close(); } catch (Exception e) {}
-	        try { conn.close(); } catch (Exception e) {}
+	        try { ps.close(); } catch (Exception ignored) {}
+	        try { conn.close(); } catch (Exception ignored) {}
 	    }
 		        
 		        

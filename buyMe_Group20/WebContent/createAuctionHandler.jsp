@@ -16,7 +16,7 @@
 		String brand = request.getParameter("brand");
 		String damageCondition = request.getParameter("damageCondition");	
 		String color = request.getParameter("color");
-		String seller = (session.getAttribute("user")).toString();
+		String sellerAccount = (session.getAttribute("user")).toString();
 		float minPrice = Float.parseFloat(request.getParameter("min_price"));
 		float startingPrice = Float.parseFloat(request.getParameter("starting_price"));
 		String startDate = request.getParameter("start_datetime");
@@ -69,8 +69,8 @@
         response.sendRedirect("createAuctionError.jsp"); // MySql error such as Start Date before End Date
         e.printStackTrace();
     } finally {
-        try { ps.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+        try { ps.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
     }
 
 %>

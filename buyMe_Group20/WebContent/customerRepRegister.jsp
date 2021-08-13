@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<% if (session.getAttribute("user") == null) { 
+	<% if (session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { 
 			String url = "jdbc:mysql://localhost:3306/buyMe";
@@ -20,7 +20,7 @@
 				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
 				
 				String user = (session.getAttribute("user")).toString();
-				String accountQuery = "SELECT * FROM Account WHERE username=?";
+				String accountQuery = "SELECT * FROM UserAccount WHERE username=?";
 				
 				ps = conn.prepareStatement(accountQuery);
 				ps.setString(1, user);
@@ -35,9 +35,9 @@
 				out.print("<p>Error connecting to MYSQL server.</p>");
 			    e.printStackTrace();
 			} finally {
-				try { rs.close(); } catch (Exception e) {} 
-				try { ps.close(); } catch (Exception e) {} 
-				try { conn.close(); } catch (Exception e) {} 
+				try { rs.close(); } catch (Exception ignored) {}
+				try { ps.close(); } catch (Exception ignored) {}
+				try { conn.close(); } catch (Exception ignored) {}
 			} %>
 	<%@ include file="navbar.jsp"%>
 	<div class="content center">
@@ -57,7 +57,7 @@
 			<br> <label>Confirm Password</label> <input type="password"
 				name="confirm_password" placeholder="Confirm Password"> <br>
 
-			<input type="submit" value="Create Account">
+			<input type="submit" value="Create UserAccount">
 		</form>
 	</div>
 	<% } %>

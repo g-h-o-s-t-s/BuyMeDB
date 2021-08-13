@@ -19,7 +19,7 @@
 		String password = request.getParameter("password");
 		String accessLevel = "END_USER";
 		
-		// Check if username already exists in the Account table
+		// Check if username already exists in the UserAccount table
 		// if it exists, redirect to registerError.jsp, adding some code to let them know the username is taken already
 		// if it does not exist, proceed
 		
@@ -32,7 +32,7 @@
 				&& password != null && !password.isEmpty()) {
 			
 			// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO Account (username, password, email, first_name, last_name, address, active, access_level)"
+			String insert = "INSERT INTO UserAccount (username, password, email, firstName, lastName, address, active, access_level)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert);
 			
@@ -62,8 +62,8 @@
         out.print("<p>Error connecting to MYSQL server.</p>");
         e.printStackTrace();
     } finally {
-        try { ps.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+        try { ps.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
     }
 
 %>

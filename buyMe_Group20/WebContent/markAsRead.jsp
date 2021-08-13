@@ -2,7 +2,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	if(session.getAttribute("user") == null) { 
+	if(session.getAttribute("userAccount") == null) {
 		response.sendRedirect("login.jsp");
 	} else {
 		String url = "jdbc:mysql://localhost:3306/buyMe";
@@ -30,8 +30,8 @@
 			out.print("<p>Error connecting to MYSQL server.</p>");
 		    e.printStackTrace();
 		} finally {
-			try { ps.close(); } catch (Exception e) {}
-		    try { conn.close(); } catch (Exception e) {}
+			try { ps.close(); } catch (Exception ignored) {}
+		    try { conn.close(); } catch (Exception ignored) {}
 		}
 	}
 %>

@@ -2,7 +2,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	if(session.getAttribute("user") == null) { 
+	if(session.getAttribute("userAccount") == null) {
 		response.sendRedirect("login.jsp");
 	} else {
 		String url = "jdbc:mysql://localhost:3306/buyMe";
@@ -13,12 +13,12 @@
 			conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
 
 			int productId = Integer.parseInt(request.getParameter("productId"));
-			String seller = request.getParameter("sellerAccount");
+			String sellerAccount = request.getParameter("sellerAccount");
 			
-			String delete = "DELETE FROM Product WHERE productId=? AND seller=?";
+			String delete = "DELETE FROM Product WHERE productId=? AND sellerAccount=?";
 			ps1 = conn.prepareStatement(delete);
 			ps1.setInt(1, productId);
-			ps1.setString(2, seller);
+			ps1.setString(2, sellerAccount);
 			
 			int insertResult = 0;
 			insertResult = ps1.executeUpdate();
@@ -35,8 +35,8 @@
 			out.print("<p>Error connecting to MYSQL server.</p>");
 		    e.printStackTrace();
 		} finally {
-			try { ps1.close(); } catch (Exception e) {}
-	        try { conn.close(); } catch (Exception e) {}
+			try { ps1.close(); } catch (Exception ignored) {}
+	        try { conn.close(); } catch (Exception ignored) {}
 		}
 	}
 %>

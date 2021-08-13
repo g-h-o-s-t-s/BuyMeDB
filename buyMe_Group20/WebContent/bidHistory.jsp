@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) { 
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -29,8 +29,8 @@
    				Locale locale = new Locale("en", "US");
    				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
    				
-   				//String bidQuery = "SELECT * FROM BidHistory WHERE buyer=? ORDER BY date DESC"; 
-   				String bidQuery = "SELECT * FROM BidHistory WHERE buyer=?";
+   				//String bidQuery = "SELECT * FROM BidHistory WHERE buyerAccount=? ORDER BY date DESC";
+   				String bidQuery = "SELECT * FROM BidHistory WHERE buyerAccount=?";
    				ps = conn.prepareStatement(bidQuery);
    				ps.setString(1, user);
    				rs1 = ps.executeQuery();
@@ -72,9 +72,9 @@
    				out.print("<h1>Error connecting to MYSQL server.</h1>");
 		        e.printStackTrace();
    			} finally {
-   				try { rs1.close(); } catch (Exception e) {}
-   				try { ps.close(); } catch (Exception e) {}   				
-   				try { conn.close(); } catch (Exception e) {}
+   				try { rs1.close(); } catch (Exception ignored) {}
+   				try { ps.close(); } catch (Exception ignored) {}
+   				try { conn.close(); } catch (Exception ignored) {}
    			} %>
 	</div>
 	<% } %>

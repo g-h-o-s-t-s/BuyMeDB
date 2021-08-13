@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<% if (session.getAttribute("user") == null) { 
+	<% if (session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -60,9 +60,9 @@
     			out.print("<p>Error connecting to MYSQL server.</p>");
 			    e.printStackTrace();    			
     		} finally {
-				try { rs.close(); } catch (Exception e) {} 
-				try { s.close(); } catch (Exception e) {} 
-				try { conn.close(); } catch (Exception e) {} 
+				try { rs.close(); } catch (Exception ignored) {}
+				try { s.close(); } catch (Exception ignored) {}
+				try { conn.close(); } catch (Exception ignored) {}
     		}   	
     	%>
 	</div>

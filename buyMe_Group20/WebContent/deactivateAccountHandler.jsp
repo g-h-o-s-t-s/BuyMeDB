@@ -16,8 +16,8 @@
 		String yourPassword = request.getParameter("your_password");
 		String confirmYourPassword = request.getParameter("confirm_your_password");
 	
-		// Get the user's row from Account table
-		String validation = "SELECT password FROM Account WHERE username=?";
+		// Get the user's row from UserAccount table
+		String validation = "SELECT password FROM UserAccount WHERE username=?";
 		pwPs = conn.prepareStatement(validation);
 		pwPs.setString(1, user);
 		rs = pwPs.executeQuery();
@@ -56,7 +56,7 @@
 
 <%	
 	
-		String query = "UPDATE Account SET active=false WHERE username=?";
+		String query = "UPDATE UserAccount SET active=false WHERE username=?";
 		ps = conn.prepareStatement(query);
 		ps.setString(1, deactivatedAccount);
 
@@ -79,9 +79,9 @@
 		out.print("<p>Error connecting to MYSQL server.</p>");
 	    e.printStackTrace();
 	} finally {
-		try { rs.close(); } catch (Exception e) {}
-		try { ps.close(); } catch (Exception e) {}
-		try { pwPs.close(); } catch (Exception e) {}
-        try { conn.close(); } catch (Exception e) {}
+		try { rs.close(); } catch (Exception ignored) {}
+		try { ps.close(); } catch (Exception ignored) {}
+		try { pwPs.close(); } catch (Exception ignored) {}
+        try { conn.close(); } catch (Exception ignored) {}
 	}
 %>

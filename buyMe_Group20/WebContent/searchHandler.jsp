@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) { 
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
@@ -57,7 +57,7 @@
 					if ((paramList.get(i)).equals("color")) {
 						condition = paramList.get(i) + " LIKE \'%" + searchParams.get(paramList.get(i)) + "%\'";
 					} else {
-						condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";	
+						condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";
 					}
 					// Only want to include AND when we have more than one parameter
 					if (i == 0) {
@@ -101,9 +101,9 @@
 		<%	//User did not enter at least one search parameter
 			    e.printStackTrace();
 			} finally {
-			    try { rs.close(); } catch (Exception e) {}
-			    try { s.close(); } catch (Exception e) {}
-			    try { conn.close(); } catch (Exception e) {}
+			    try { rs.close(); } catch (Exception ignored) {}
+			    try { s.close(); } catch (Exception ignored) {}
+			    try { conn.close(); } catch (Exception ignored) {}
 			}
 		%>
 	</div>

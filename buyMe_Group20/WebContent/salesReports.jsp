@@ -2,13 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
 <title>BuyMe - Sales Reports</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	<% if(session.getAttribute("user") == null) {
+	<% if(session.getAttribute("userAccount") == null) {
     		response.sendRedirect("login.jsp");
        } else {
     	   String accessLevel = session.getAttribute("accessLevel").toString();
@@ -18,7 +16,7 @@
     	   } %>
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
-		<h2>Select a sales report to generate</h2>
+		<h2>Select Desired Sales Report Category</h2>
 		<ul>
 			<li><a href="salesReportHandler.jsp?type=totalEarnings">Total
 					Earnings</a></li>
@@ -30,8 +28,8 @@
 					per end-user</a></li>
 			<li><a href="salesReportHandler.jsp?type=bestSelling">Best-selling
 					items</a></li>
-			<li><a href="salesReportHandler.jsp?type=bestBuyers">Best
-					buyers</a></li>
+			<li><a href="salesReportHandler.jsp?type=bestBuyers">Biggest spenders
+            </a></li>
 		</ul>
 	</div>
 	<% } %>
