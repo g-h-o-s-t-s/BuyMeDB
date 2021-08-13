@@ -14,8 +14,8 @@
        } else { %>
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
-
 		<%
+            // Allows for easier search indexing.
 			ArrayList<String> paramList = new ArrayList<String>();
 			Map<String, String> searchParams = new HashMap<String, String>();
 			int index = 0;
@@ -23,10 +23,8 @@
 				//paramList.add(params.nextElement());
 				String paramName = params.nextElement();
 				String paramValue = request.getParameter(paramName);
-				if (!paramValue.isEmpty() && paramValue != null) {
+				if (!paramValue.isEmpty()) {
 					paramList.add(paramName);
-					//System.out.println(paramList.get(index));
-					//System.out.println(paramValue);
 					if ((paramList.get(index)).equals("damageCondition")) {
 						String damageConditionFixed = paramValue.replace("'", "\\'");
 						searchParams.put(paramList.get(index), damageConditionFixed);

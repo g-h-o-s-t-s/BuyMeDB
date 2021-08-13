@@ -18,14 +18,13 @@ public class ApplicationDB {
 		Connection connection = null;
 		
 		try {
-			//Load JDBC driver - the interface standardizing the connection 
-			//procedure. Look at WEB-INF\lib for a mysql connector jar file, 
-			//otherwise it fails.
+			//Load JDBC driver, look through
+            // WEB-INF\lib for a mysql connector jar file,
+			// otherwise failure.
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException
                 | ClassNotFoundException
                 | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         try {
@@ -33,7 +32,6 @@ public class ApplicationDB {
 			connection = DriverManager.getConnection(connectionUrl,"root", 
 					"UN5AW!]x9K{[bP");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -45,7 +43,6 @@ public class ApplicationDB {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
