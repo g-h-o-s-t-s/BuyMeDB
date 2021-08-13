@@ -96,7 +96,7 @@
 		<div class="content center">
 			<h1>Error: You must enter at least one search parameter.</h1>
 		</div>
-		<%	//User did not enter at least one search parameter
+		<%	// No search params whatsoever
 			    e.printStackTrace();
 			} finally {
 			    try { rs.close(); } catch (Exception ignored) {}
