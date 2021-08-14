@@ -2,7 +2,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	if(session.getAttribute("userAccount") == null) {
+	if (session.getAttribute("user") == null) {
 		response.sendRedirect("login.jsp");
 	} else {
 		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +

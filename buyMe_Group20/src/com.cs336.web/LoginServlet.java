@@ -33,13 +33,14 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("reached true validation");
                 HttpSession session = request.getSession();
                 session.setAttribute("username",username);
-                response.sendRedirect("accountSettings.jsp");
-                System.out.println("redirect accountSettings");
+                response.sendRedirect("index.jsp");
+                System.out.println("redirect index");
             } else {
                 System.out.println("reached false validation");
                 HttpSession session = request.getSession();
                 session.setAttribute("user", username);
                 response.sendRedirect("loginError.jsp");
+                System.out.println("redirect loginError");
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

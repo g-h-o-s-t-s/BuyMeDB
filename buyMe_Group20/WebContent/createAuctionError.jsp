@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<% if(session.getAttribute("userAccount") == null) {
+	<% if (session.getAttribute("user") == null) {
     	 	response.sendRedirect("login.jsp");
        } else { %>
 	<%@ include file="navbar.jsp"%>
