@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
-<title>Create Auction</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Create Auction</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {

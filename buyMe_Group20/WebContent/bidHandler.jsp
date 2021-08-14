@@ -14,7 +14,7 @@
 	ResultSet rs = null;
 	ResultSet autoRs = null;
 	try {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 	
 		int productId = Integer.parseInt(request.getParameter("productId"));
@@ -39,7 +39,7 @@
 			//System.out.println("MaxBid = " + maxBid);
 			float increment = Float.parseFloat(request.getParameter("bidIncrement"));
 			//System.out.println("Increment = " + increment);
-			String setupAutoBid = "INSERT INTO AutoBidder (user, productId, maxPrice, incremental) VALUES (?, ?, ?, ?)";
+			String setupAutoBid = "INSERT INTO AutoBidder (userAcc, productId, maxPrice, incremental) VALUES (?, ?, ?, ?)";
 			autoPs = conn.prepareStatement(setupAutoBid);
 			autoPs.setString(1, bidder);
 			autoPs.setInt(2, productId);
@@ -76,7 +76,7 @@
 				boolean prevHasAuto;
 				float increment = 0;
 				float maxPrice = 0;
-				String queryAutoBid = "SELECT * FROM AutoBidder WHERE user=? AND productId=?";
+				String queryAutoBid = "SELECT * FROM AutoBidder WHERE userAcc=? AND productId=?";
 				autoPs = conn.prepareStatement(queryAutoBid);
 				autoPs.setString(1, prevBidder);
 				autoPs.setInt(2, productId);
@@ -90,7 +90,7 @@
 				}
 				
 				// Automatically outbid this new bid if the prev bidder had auto-bid setup
-				if (prevBidder!= null && !prevBidder.equals(bidder) && prevHasAuto) {
+				if (prevBidder != null && !prevBidder.equals(bidder) && prevHasAuto) {
 					String insertAutoBid = "INSERT INTO Bid VALUES (?, ?, ?, ?)";
 					autoPs = conn.prepareStatement(insertNewBid);
 					autoPs.setInt(1, productId);
@@ -117,7 +117,7 @@
 					if (deleteResult < 1) {
 						response.sendRedirect("error.jsp"); // This should never happen
 					}					
-					String outBidAlert = "INSERT INTO Alerts (user, message) VALUES (?, ?)";
+					String outBidAlert = "INSERT INTO Alerts (userAcc, message) VALUES (?, ?)";
 					alertPs = conn.prepareStatement(outBidAlert);
 					alertPs.setString(1, bidder);
 					alertPs.setString(2, "You have been outbid. <a href=\"auction.jsp?productId=" +  productId + "  \">Click here to go to the auction page.</a>");
@@ -143,8 +143,8 @@
 			// Bid placed successfully, redirect to auction page
 			response.sendRedirect("auction.jsp?productId=" + productId + "&bid=success");
 		}
-	} catch(Exception e) {
-		out.print("<p>Error connecting to MYSQL server.</p>");
+	} catch (Exception e) {
+		out.print("<p>Error occurred during mySQL server connection.</p>");
 	    e.printStackTrace();
 	} finally {
 		try { ps1.close(); } catch (Exception ignored) {}

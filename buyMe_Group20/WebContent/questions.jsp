@@ -7,31 +7,36 @@
 
 
 <title>Frequently Asked Questions</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
-		<%	if (request.getParameter("submit") != null && (request.getParameter("submit")).toString().equals("success")) { %>
+		<%	if (request.getParameter("submit") != null && (request.getParameter("submit")).equals("success")) { %>
 		<h1>Your question has been submitted successfully.</h1>
 		<%	} %>
 
 		<h1>Submit a new question:</h1>
 		<form action="questionsHandler.jsp" method="post">
-			<textarea style="font-size: 18pt" rows="1" cols="90" maxlength="250"
-				id="msg" name="Question"></textarea>
+            <label for="msg">
+                <textarea style="font-size: 18pt" rows="1" cols="90" maxlength="250"
+                    id="msg" name="Question"></textarea></label>
 			<br> <input type="submit" value="Submit">
 		</form>
 		<% 
 		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
             "?verifyServerCertificate=false&useSSL=true";
 		Connection conn = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps;
 		ResultSet rs = null;
 		
-		try {   		
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
+		try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 			String username = (session.getAttribute("user")).toString();
 			String questionsQuery = "SELECT * FROM Questions";
 			String check = "Awaiting answer from customer representative";
@@ -41,9 +46,7 @@
 			
 			if(rs.next()){ %>
 		<h1>Question Results:</h1>
-		<p style="font-size: 8pt;">**Please note that all questions may
-			not be answered until a customer representative gets a chance to
-			answer them**</p>
+		<p>Please await a Customer Representative response. Thank you.</p>
 		<table>
 			<tr>
 				<th>Question</th>
@@ -54,12 +57,12 @@
 				<td><%= rs.getString("question") %></td>
 				<% if (check.equals(rs.getString("answer"))
 									&& !((session.getAttribute("accessLevel")).toString()).equals("END_USER")) { %>
-				<form>
-					action="answersHandler.jsp?questionId=<%= rs.getInt("questionId") %>"
-					method="POST">
-					<td><textarea type="textarea" name="Answer"></textarea> <input
-						type="submit" value="Answer"></td>
-				</form>
+                <form action="answersHandler.jsp?questionId=<%= rs.getInt("questionId") %>" method="POST">
+                    <td>
+                        <textarea type="textarea" name="Answer"></textarea>
+                        <input type="submit" value="Answer">
+                    </td>
+                </form>
 				<% } else { %>
 				<td><%= rs.getString("answer") %></td>
 				<% } %>
@@ -74,15 +77,15 @@
 		<%
 		
 		} catch (SQLException e){
-			out.print("<p>Error connecting to MYSQL server.</p>");
+			out.print("<p>Error occurred during mySQL server connection.</p>");
 		    e.printStackTrace();    			
 		} finally {
-			try { rs.close(); } catch (Exception ignored) {}
+			try {
+                assert rs != null;
+                rs.close(); } catch (Exception ignored) {}
 			try { conn.close(); } catch (Exception ignored) {}
 		}   		
 	%>
-
-
 	</div>
 </body>
 </html>

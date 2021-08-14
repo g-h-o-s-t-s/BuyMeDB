@@ -4,12 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Customer Rep Register</title>
-<link rel="stylesheet" href="styles.css">
+    <title>Customer Rep Register</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
     		response.sendRedirect("login.jsp");
+    		System.out.println("redirected to login");
        } else { 
 		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
                 "?verifyServerCertificate=false&useSSL=true";
@@ -17,8 +18,12 @@
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 		   	try {
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				
 				String user = (session.getAttribute("user")).toString();
 				String accountQuery = "SELECT * FROM UserAccount WHERE username=?";
@@ -28,15 +33,18 @@
 				rs = ps.executeQuery();
 				rs.next();
 				
-				if (rs.getString("accessLevel") != "CUSTOMER_REP") {
+				if (!rs.getString("accessLevel").equals("ADMIN")) {
     				response.sendRedirect("index.jsp");
+                    System.out.println("redirected to index");
  	    			return;
     			} 
 			} catch (SQLException e) {
-				out.print("<p>Error connecting to MYSQL server.</p>");
+				out.print("<p>Error occurred during mySQL server connection.</p>");
 			    e.printStackTrace();
 			} finally {
-				try { rs.close(); } catch (Exception ignored) {}
+				try {
+                    assert rs != null;
+                    rs.close(); } catch (Exception ignored) {}
 				try { ps.close(); } catch (Exception ignored) {}
 				try { conn.close(); } catch (Exception ignored) {}
 			} %>
@@ -46,19 +54,19 @@
 		<form action="customerRepHandler.jsp" method="POST">
 			<label for="firstName">First Name</label> <input type="text"
 				name="firstName" id="firstName" placeholder="First Name">
-			<br> <label>Last Name</label> <input type="text"
-				name="lastName" placeholder="Last Name"> <br> <label>Email</label>
-			<input type="text" name="email" placeholder="Email"> <br>
+			<br> <label>Last Name <input type="text"
+				name="lastName" placeholder="Last Name"></label>
+            <br> <label>Email <input type="text" name="email" placeholder="Email"></label>
+            <br> <label for="address">Address <input type="text"
+				name="address" placeholder="Address" id="address"></label>
+            <br> <label for="username">Username <input type="text" name="username"
+				id="username" placeholder="Username"></label>
+            <br> <label>Password
+			<input type="password" name="password" placeholder="Password"></label>
+			<br> <label>Confirm Password <input type="password"
+				name="confirm_password" placeholder="Confirm Password"></label> <br>
 
-			<label for="Address">Address</label> <input type="text"
-				name="address" placeholder="Address"> <br> <label
-				for="username">Username</label> <input type="text" name="username"
-				id="username" placeholder="Username"> <br> <label>Password</label>
-			<input type="password" name="password" placeholder="Password">
-			<br> <label>Confirm Password</label> <input type="password"
-				name="confirm_password" placeholder="Confirm Password"> <br>
-
-			<input type="submit" value="Create UserAccount">
+			<input type="submit" value="Create Customer Rep Account">
 		</form>
 	</div>
 	<% } %>

@@ -7,7 +7,7 @@
 
 
 <title>Your Selling History</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -82,7 +82,7 @@
 		<%	} 		
    			} catch (SQLException e) {
    				response.sendRedirect("error.jsp");
-   				out.print("<h1>Error connecting to MYSQL server.</h1>");
+   				out.print("<h1>Error occurred during mySQL server connection.</h1>");
 		        e.printStackTrace();
    			} finally {
    				try { rs1.close(); } catch (Exception ignored) {}

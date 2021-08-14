@@ -16,7 +16,7 @@
 
 			if(username != null && !username.isEmpty() && question != null && !question.isEmpty()){
 				
-				String insert = "INSERT INTO Questions (user, question, answer)" + "VALUES (?, ?, ?)";
+				String insert = "INSERT INTO Questions (userAcc, question, answer)" + "VALUES (?, ?, ?)";
 				
 				ps = conn.prepareStatement(insert);
 				
@@ -36,8 +36,8 @@
 				response.sendRedirect("questionError.jsp");
 				return;
 			}    
-		} catch(Exception e) {
-	        out.print("<p>Error connecting to MYSQL server.</p>" + e);
+		} catch (Exception e) {
+	        out.print("<p>Error occurred during mySQL server connection.</p>" + e);
 	        e.printStackTrace();
 	    } finally {
 	        try { ps.close(); } catch (Exception ignored) {}

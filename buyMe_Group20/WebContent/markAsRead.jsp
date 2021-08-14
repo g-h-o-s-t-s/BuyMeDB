@@ -27,8 +27,8 @@
 				// Alert was successfully marked as read
 				response.sendRedirect("index.jsp");
 			}
-		} catch(Exception e) {
-			out.print("<p>Error connecting to MYSQL server.</p>");
+		} catch (Exception e) {
+			out.print("<p>Error occurred during mySQL server connection.</p>");
 		    e.printStackTrace();
 		} finally {
 			try { ps.close(); } catch (Exception ignored) {}

@@ -8,7 +8,7 @@
     <!-- This meta tag allows the CSS file to link properly. -->
     <meta charset="utf-8">
 	<title>BuyMe Home</title>
-	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -104,7 +104,7 @@
 		<h2>You currently have no items for auction.</h2>
 		<%	}
     		} catch (SQLException e) {
-				out.print("<p>Error connecting to MYSQL server.</p>");
+				out.print("<p>Error occurred during mySQL server connection.</p>");
 			    e.printStackTrace();
 			} finally {
 				try { rs.close(); } catch (Exception ignored) {}

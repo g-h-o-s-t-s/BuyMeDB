@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Creating Auction Error</title>
-<link rel="stylesheet" href="styles.css">
+    <title>Auction Creation Error</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {

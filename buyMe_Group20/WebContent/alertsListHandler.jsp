@@ -54,7 +54,7 @@
 			response.sendRedirect("createAuctionError.jsp"); //error
 			return;
 		}
-	} catch(Exception e) {
+	} catch (Exception e) {
         response.sendRedirect("createAuctionError.jsp"); // MySql error such as Start Date before End Date
         e.printStackTrace();
     } finally {

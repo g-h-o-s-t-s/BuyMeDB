@@ -6,7 +6,7 @@
 
 
 <title>Search - Results</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -54,9 +54,9 @@
 				for (int i = 0; i < searchParams.size(); i++) {
 					// Check for numeric parameter so we can format the SQL query correctly
 					if ((paramList.get(i)).equals("color")) {
-						condition = paramList.get(i) + " LIKE \'%" + searchParams.get(paramList.get(i)) + "%\'";
+						condition = paramList.get(i) + " LIKE '%" + searchParams.get(paramList.get(i)) + "%\'";
 					} else {
-						condition = paramList.get(i) + " LIKE \'" + searchParams.get(paramList.get(i)) + "\'";
+						condition = paramList.get(i) + " LIKE '" + searchParams.get(paramList.get(i)) + "\'";
 					}
 					// Only want to include AND when we have more than one parameter
 					if (i == 0) {
@@ -92,7 +92,7 @@
 		<h2>No results matching your search parameters.</h2>
 		<%	}		
 					
-			} catch(Exception e) { %>
+			} catch (Exception e) { %>
 		<jsp:include page="search.jsp" flush="true" />
 		<div class="content center">
 			<h1>Error: You must enter at least one search parameter.</h1>

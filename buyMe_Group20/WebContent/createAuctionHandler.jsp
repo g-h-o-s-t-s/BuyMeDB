@@ -34,7 +34,7 @@
 				&& startingPrice >= 0.0f) {
 			
 		// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO Product (category, brand, damageCondition, color, sellerAccount, minPrice, price, sold, startDate, endDate)"
+			String insert = "INSERT INTO Product (category, brand, damageCondition, color, sellerAccount, reservePrice, price, isSold, startDate, endDate)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 		
@@ -66,7 +66,7 @@
 			response.sendRedirect("createAuctionError.jsp"); //error
 			return;
 		}
-	} catch(Exception e) {
+	} catch (Exception e) {
         response.sendRedirect("createAuctionError.jsp"); // MySql error such as Start Date before End Date
         e.printStackTrace();
     } finally {

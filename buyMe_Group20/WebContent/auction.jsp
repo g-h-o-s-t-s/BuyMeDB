@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
-<title>BuyMe</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>BuyMe</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -35,7 +33,7 @@
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
 					conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				
-					String user = session.getAttribute("userAccount").toString();
+					String user = session.getAttribute("user").toString();
 					int productId = Integer.parseInt(request.getParameter("productId"));
 					String accessLevel = (String) session.getAttribute("accessLevel");
 					String productQuery = "SELECT * FROM Product WHERE productId=?";
@@ -121,7 +119,7 @@
 		<br>
 		<% } %>
 		<!-- Place bid if not seller -->
-		<% if (!session.getAttribute("userAccount").equals(rs.getString("sellerAccount")) && accessLevel.equals("END_USER")) {
+		<% if (!session.getAttribute("user").equals(rs.getString("sellerAccount")) && accessLevel.equals("END_USER")) {
 								// Check if user has autobid setup for this product, if no display the following
 								String queryAutoBid = "SELECT * FROM AutoBidder WHERE userAcc=? AND productId=?";
 								autoPs = conn.prepareStatement(queryAutoBid);
@@ -222,8 +220,8 @@
 					ResultSet similarItems = null;
 					String damageConditionFixed = (rs.getString("damageCondition")).replace("'", "\\'");
 					String similarQuery = "SELECT * FROM Product WHERE productId!=" + productId
-							+ " AND (brand LIKE \'" + rs.getString("brand") +
-							" AND damageCondition LIKE \'" + damageConditionFixed + "\'))";
+							+ " AND (brand LIKE '" + rs.getString("brand") +
+							" AND damageCondition LIKE '" + damageConditionFixed + "\'))";
 					Statement s = conn.createStatement();
 					similarItems = s.executeQuery(similarQuery);
 					if (similarItems.next()) { 
@@ -254,7 +252,7 @@
 		<h3>There are no similar items in the auction.</h3>
 		<%	} 							
 				} catch(SQLException e) {
-					out.print("<p>Error connecting to MYSQL server.</p>");
+					out.print("<p>Error occurred during mySQL server connection.</p>");
 			        e.printStackTrace();
 				} finally {
 					try { rs.close(); } catch (Exception ignored) {}

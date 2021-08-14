@@ -5,7 +5,7 @@
 
 
 <title>Register Success</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="content center">

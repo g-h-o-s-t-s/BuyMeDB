@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Live Auctions</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Live Auctions</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				Locale locale = new Locale("en", "US");
 				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
-				String allAuctionsQuery = "SELECT * FROM Product WHERE sold=false";
+				String allAuctionsQuery = "SELECT * FROM Product WHERE isSold=false";
 				s = conn.createStatement();
 				rs = s.executeQuery(allAuctionsQuery);
 				if (rs.next()) { %>
@@ -58,7 +58,7 @@
 				
 				
     		} catch (SQLException e){
-    			out.print("<p>Error connecting to MYSQL server.</p>");
+    			out.print("<p>Error occurred during mySQL server connection.</p>");
 			    e.printStackTrace();    			
     		} finally {
 				try { rs.close(); } catch (Exception ignored) {}

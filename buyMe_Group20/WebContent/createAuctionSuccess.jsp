@@ -3,10 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
-<title>Auction Created Successfully</title>
-<link rel="stylesheet" href="styles.css">
+    <title>Auction Creation Success</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="content center">

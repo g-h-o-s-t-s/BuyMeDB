@@ -7,7 +7,7 @@
 
 
 <title>Sales Reports - Results</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -129,7 +129,7 @@
 		    		return;
 		    	}
 			} catch (SQLException e) {
-				out.print("<p>Error connecting to MYSQL server.</p>");
+				out.print("<p>Error occurred during mySQL server connection.</p>");
 			    e.printStackTrace();
 			} finally {
 				try { rs.close(); } catch (Exception ignored) {}

@@ -37,8 +37,8 @@
 				response.sendRedirect("questionError.jsp");
 				return;
 			}    
-		} catch(Exception e) {
-	        out.print("<p>Error connecting to MYSQL server.</p>" + e);
+		} catch (Exception e) {
+	        out.print("<p>Error occurred during mySQL server connection.</p>" + e);
 	        e.printStackTrace();
 	    } finally {
 	        try { ps.close(); } catch (Exception ignored) {}

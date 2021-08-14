@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe - Login</title>
-<link rel="stylesheet" href="styles.css">
+    <title>BuyMe - Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="content center">

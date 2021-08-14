@@ -1,12 +1,11 @@
-<%@ page language="java"
-	pageEncoding="ISO-8859-1"%>
+<%@ page pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Your Buying History</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Your Buying History</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -23,16 +22,20 @@
 			ResultSet rs2 = null;
 			ResultSet rs3 = null;
 			
-   			try {   		
-   				Class.forName("com.mysql.jdbc.Driver").newInstance();
-   				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
+   			try {
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
    				
    				String user = (session.getAttribute("user")).toString(); 				
    				// Create formatter for US currency
    				Locale locale = new Locale("en", "US");
    				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
    				
-   				String buyQuery = "SELECT * FROM BuyingHistory WHERE buyerAccount=? ORDER BY date DESC";
+   				String buyQuery = "SELECT * FROM BuyingHistory WHERE buyerAccount=? ORDER BY purchaseDate DESC";
    				ps = conn.prepareStatement(buyQuery);
    				ps.setString(1, user);
    				rs1 = ps.executeQuery();
@@ -45,7 +48,6 @@
 				<th>Price</th>
 				<th>Seller</th>
 				<th>Date</th>
-				<!--<th>Date</th>-->
 			</tr>
 			<%	do { 
    						int productId = rs1.getInt("productId");
@@ -80,12 +82,18 @@
 		<%	} 		
    			} catch (SQLException e) {
    				response.sendRedirect("error.jsp");
-   				out.print("<h1>Error connecting to MYSQL server.</h1>");
+   				out.print("<h1>Error occurred during mySQL server connection.</h1>");
 		        e.printStackTrace();
    			} finally {
-   				try { rs1.close(); } catch (Exception ignored) {}
-   				try { rs2.close(); } catch (Exception ignored) {}
-   				try { rs3.close(); } catch (Exception ignored) {}
+   				try {
+                    assert rs1 != null;
+                    rs1.close(); } catch (Exception ignored) {}
+   				try {
+                    assert rs2 != null;
+                    rs2.close(); } catch (Exception ignored) {}
+   				try {
+                    assert rs3 != null;
+                    rs3.close(); } catch (Exception ignored) {}
    				try { ps.close(); } catch (Exception ignored) {}
    				try { conn.close(); } catch (Exception ignored) {}
    			} %>

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Your Bidding History</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Your Bidding History</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -29,8 +29,7 @@
    				// Create formatter for US currency
    				Locale locale = new Locale("en", "US");
    				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
-   				
-   				//String bidQuery = "SELECT * FROM BidHistory WHERE buyerAccount=? ORDER BY date DESC";
+
    				String bidQuery = "SELECT * FROM BidHistory WHERE buyerAccount=?";
    				ps = conn.prepareStatement(bidQuery);
    				ps.setString(1, user);
@@ -70,7 +69,7 @@
 		<%	} 		
    			} catch (SQLException e) {
    				response.sendRedirect("error.jsp");
-   				out.print("<h1>Error connecting to MYSQL server.</h1>");
+   				out.print("<h1>Error occurred during mySQL server connection.</h1>");
 		        e.printStackTrace();
    			} finally {
    				try { rs1.close(); } catch (Exception ignored) {}

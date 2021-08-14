@@ -6,7 +6,7 @@
 <html>
 <head><meta charset="utf-8">
 	<title>Account Settings</title>
-	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -51,7 +51,7 @@
 				}
 				
     		} catch(SQLException e) {
-				out.print("<p>Error connecting to MYSQL server.</p>");
+				out.print("<p>Error occurred during mySQL server connection.</p>");
 		        e.printStackTrace();
 			} finally {
 				try { //avoid NullPointerException
@@ -78,7 +78,7 @@
 				placeholder="New"></label>
             <br> <label>Confirm New Password <input type="password"
                 name="confirm_new_password" placeholder=""></label>
-            <br> <input type="submit" value="Update UserAccount Settings">
+            <br> <input type="submit" value="Update Account Settings">
 		</form>
 	</div>
 	<% } %>

@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
-<title>Frequently Asked Questions</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Frequently Asked Questions</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<%@ include file="navbar.jsp"%>
@@ -25,7 +23,7 @@
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 			String username = (session.getAttribute("user")).toString();
-			String questionsQuery = "SELECT question, answer FROM Questions WHERE user=?";
+			String questionsQuery = "SELECT question, answer FROM Questions WHERE userAcc=?";
 			
 			ps = conn.prepareStatement(questionsQuery);
 			ps.setString(1, username);
@@ -33,9 +31,7 @@
 			
 			if(rs.next()){ %>
 		<h1>Question Results:</h1>
-		<p style="font-size: 8pt;">**Please note that all questions may
-			not be answered until a customer representative gets a chance to
-			answer them.**</p>
+		<p style="font-size: 8pt;">Please await Customer Rep response.</p>
 		<table>
 			<tr>
 				<th>Question</th>
@@ -56,7 +52,7 @@
 		<%
 		
 		} catch (SQLException e){
-			out.print("<p>Error connecting to MYSQL server.</p>");
+			out.print("<p>Error occurred during mySQL server connection.</p>");
 		    e.printStackTrace();    			
 		} finally {
 			try { rs.close(); } catch (Exception ignored) {}

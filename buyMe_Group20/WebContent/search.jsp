@@ -5,7 +5,7 @@
 <html>
 <head><meta charset="utf-8">
 <title>Search</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {

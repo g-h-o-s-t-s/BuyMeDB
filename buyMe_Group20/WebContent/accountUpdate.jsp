@@ -97,8 +97,8 @@
 <% 	}
 		
 		
-	} catch(Exception e) {
-		out.print("<p>Error connecting to MYSQL server.</p>");
+	} catch (Exception e) {
+		out.print("<p>Error occurred during mySQL server connection.</p>");
 	    e.printStackTrace();
 	} finally {
 		try {

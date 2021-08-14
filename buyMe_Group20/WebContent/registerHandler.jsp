@@ -8,7 +8,7 @@
 	PreparedStatement ps = null;
 	
 	try {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 		
 		// Get the parameters from the register request
@@ -59,11 +59,13 @@
 			response.sendRedirect("registerError.jsp");
 			return;
 		}
-	} catch(Exception e) {
-        out.print("<p>Error connecting to MYSQL server.</p>");
+	} catch (Exception e) {
+        out.print("<p>Error occurred during mySQL server connection.</p>");
         e.printStackTrace();
     } finally {
-        try { ps.close(); } catch (Exception ignored) {}
+        try {
+            assert ps != null;
+            ps.close(); } catch (Exception ignored) {}
         try { conn.close(); } catch (Exception ignored) {}
     }
 

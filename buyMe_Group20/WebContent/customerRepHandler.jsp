@@ -8,7 +8,7 @@
 	PreparedStatement ps = null;
 	
 	try {
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 		
 		// Get the parameters from the register request
@@ -33,7 +33,8 @@
 				&& password != null && !password.isEmpty()) {
 			
 			// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO UserAccount (username, password, email, firstName, lastName, address, isActive, accessLevel)"
+			String insert = "INSERT INTO UserAccount (username, password," +
+                    " email, firstName, lastName, address, isActive, accessLevel)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert);
 			
@@ -47,23 +48,25 @@
 			ps.setBoolean(7, true);
 			ps.setString(8, accessLevel);
 			
-			int result = 0;
+			int result;
 	        result = ps.executeUpdate();
 	        if (result < 1) {
 	        	out.println("Error: Registration failed.");
 	        } else {
-	        	response.sendRedirect("registerSuccess2.jsp");
+	        	response.sendRedirect("registerSuccessRep.jsp");
 	        	return;
 	        }
 		} else {
-			response.sendRedirect("registerError.jsp");
+			response.sendRedirect("registerErrorRep.jsp");
 			return;
 		}
-	} catch(Exception e) {
-        out.print("<p>Error connecting to MYSQL server.</p>");
+	} catch (Exception e) {
+        out.print("<p>Error occurred during mySQL server connection.</p>");
         e.printStackTrace();
     } finally {
-        try { ps.close(); } catch (Exception ignored) {}
+        try {
+            assert ps != null;
+            ps.close(); } catch (Exception ignored) {}
         try { conn.close(); } catch (Exception ignored) {}
     }
 

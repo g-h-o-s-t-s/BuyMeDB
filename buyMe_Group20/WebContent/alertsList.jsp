@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-
-
-<title>Add to AlertsList</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Add to AlertsList</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {

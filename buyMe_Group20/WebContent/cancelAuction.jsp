@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>Cancel Auction</title>
-<link rel="stylesheet" href="styles.css" />
+    <title>Cancel Auction</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 	<% if (session.getAttribute("user") == null) {
@@ -16,13 +16,13 @@
 
 	<div class="content">
 		<form action="cancelAuctionHandler.jsp" method="POST">
-			<label>Seller</label> <input type="text" name="sellerAccount"
-				placeholder="Username" required><br> <label>Enter
-				Your Password</label> <input type="password" name="your_password"
-				placeholder="Enter Password" required> <br> <label>Confirm
-				Your Password</label> <input type="password" name="confirm_your_password"
-				placeholder="Confirm Password" required> <br> <input
-				type="submit" value="Cancel The Auction">
+			<label>Seller <input type="text" name="sellerAccount"
+				placeholder="Username" required></label>
+            <br> <label>Enter Your Password <input type="password" name="your_password"
+				placeholder="Enter Password" required></label>
+            <br> <label>Confirm Your Password <input type="password" name="confirmPassword"
+				placeholder="Confirm Password" required></label>
+            <br> <input type="submit" value="Cancel The Auction">
 		</form>
 
 	</div>
