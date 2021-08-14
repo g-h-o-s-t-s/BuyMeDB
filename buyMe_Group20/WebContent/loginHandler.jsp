@@ -15,7 +15,9 @@
 	
 		// Get the parameters from the login request
 		String username = request.getParameter("username");
+		System.out.println(username);
 		String password = request.getParameter("password");
+        System.out.println(password);
 		
 		if (username != null && password != null) {
 			String validation = "SELECT * FROM UserAccount WHERE username=?";
@@ -26,10 +28,11 @@
 			if (rs.next()) {
 				String db_password = rs.getString("password");
 				if (password.equals(db_password)) {
-					session.setAttribute("username", username);
+					session.setAttribute("user", username);
 					session.setAttribute("accessLevel", rs.getString("accessLevel"));
 					session.setAttribute("firstName", rs.getString("firstName"));
 					response.sendRedirect("index.jsp");
+					System.out.println("redirect to index from loginHandler");
                 } else response.sendRedirect("loginError.jsp");
             } else response.sendRedirect("loginError.jsp");
         } else response.sendRedirect("loginError.jsp");

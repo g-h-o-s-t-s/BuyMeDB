@@ -12,7 +12,7 @@
 			<i>Buy and Sell Your Headphones with
                 the friendliest online community!</i>
 		</h2>
-		<form action="${pageContext.request.contextPath}/com.cs336.servlets.LoginServlet"
+		<form action="loginHandler.jsp"
               method="POST">
             <label>
                 <input type="text" name="username" placeholder="Username">
