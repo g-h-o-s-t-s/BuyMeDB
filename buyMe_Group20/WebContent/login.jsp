@@ -10,13 +10,19 @@
 	<div class="content center">
 		<h1 style="font-size: 400%;">BuyMe</h1>
 		<h2>
-			<i>Buy and Sell Your Products with the friendliest online community!</i>
+			<i>Buy and Sell Your Headphones with
+                the friendliest online community!</i>
 		</h2>
 		<form action="loginHandler.jsp" method="POST">
-			<input type="text" name="username" placeholder="Username"> <br>
-			<input type="password" name="password" placeholder="Password">
-			<br> <input type="submit" value="Login">
+            <label>
+                <input type="text" name="username" placeholder="Username">
+            </label> <br>
+            <label>
+                <input type="password" name="password" placeholder="Password">
+            </label>
+            <br> <input type="submit" value="Login">
 		</form>
+        <br>
 		<a href="register.jsp">Don't have an account? Register here.</a>
 	</div>
 </body>

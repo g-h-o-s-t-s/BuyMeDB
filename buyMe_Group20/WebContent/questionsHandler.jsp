@@ -2,13 +2,14 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <% 
-		String url = "jdbc:mysql://localhost:3306/buyMe";
+		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 		Connection conn = null;
 		PreparedStatement ps = null;
 			
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+			conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 			
 			String username = (session.getAttribute("user")).toString();
 			String question = request.getParameter("Question");

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe</title>
+<title>Live Auctions</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,14 +15,15 @@
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
 		<%
-	    	String url = "jdbc:mysql://localhost:3306/buyMe";
+	    	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 			Connection conn = null;
 			Statement s = null;
     		ResultSet rs = null;
     	
     		try {
     			Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				Locale locale = new Locale("en", "US");
 				NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
 				String allAuctionsQuery = "SELECT * FROM Product WHERE sold=false";

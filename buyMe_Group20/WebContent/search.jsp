@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe - Search Results</title>
+<title>Search</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,18 +15,14 @@
 	<div class="content">
 		<h2>Select at least one search parameter</h2>
 		<form action="searchHandler.jsp" method="GET">
-			<label for="category">Category</label> <select name="category"
+			<label for="category">Select Category</label> <select name="category"
 				id="category" required>
-				<option value="" disabled selected hidden="true">Select
-					category</option>
 				<option value="In-Ear">In-Ear</option>
 				<option value="On-Ear">On-Ear</option>
 				<option value="Over-Ear">Over-Ear</option>
 				<option value="Wireless">Wireless</option>
-			</select> <br> <label for="brand">Brand</label> <select name="brand"
+			</select> <br> <label for="brand">Select Brand</label> <select name="brand"
 				id="brand" required>
-				<option value="" disabled selected hidden="true">Select
-					brand</option>
 				<option value="Audio-Technica">Audio-Technica</option>
 				<option value="Beyerdynamic">Beyerdynamic</option>
 				<option value="Bose">Bose</option>
@@ -35,12 +31,14 @@
 				<option value="Sennheiser">Sennheiser</option>
 				<option value="Sony">Sony</option>
 				<option value="Other">Other</option>
-			</select> 
-			<br> <input type="radio" name="damageCondition" value="Poor" required>
-			Poor <br> <input type="radio" name="damageCondition" value="Fair">
-			Fair <br> <input type="radio" name="damageCondition" value="Like New">
-			Like New <br> <input type="radio" name="damageCondition" value="Original Condition">
-			Original Condition <br> 
+			</select>
+            <br> <label>Poor <input type="radio" name="damageCondition"
+                value="Poor" required></label>
+            <br> <label>Fair <input type="radio" name="damageCondition" value="Fair"></label>
+            <br> <label>Like New <input type="radio" name="damageCondition"
+                value="Like New"></label>
+            <br> <label>Original Condition <input type="radio" name="damageCondition"
+                value="Original Condition"></label>
 			<br> <label for="color">Color</label> <input type="text"
 				name="color" id="color" placeholder="Enter color(s)" required>
 				<br> <input type="submit" value="Search">

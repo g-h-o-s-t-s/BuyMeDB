@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe - Error</title>
+<title>BuyMe - Generic Error</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>

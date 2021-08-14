@@ -1,15 +1,17 @@
+<%--suppress deprecation --%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	String url = "jdbc:mysql://localhost:3306/buyMe";
+	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 	
 		// Get the parameters from the login request
 		String username = request.getParameter("username");
@@ -19,7 +21,6 @@
 			String validation = "SELECT * FROM UserAccount WHERE username=?";
 			ps = conn.prepareStatement(validation);
 			ps.setString(1, username);
-			
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
@@ -29,25 +30,18 @@
 					session.setAttribute("accessLevel", rs.getString("accessLevel"));
 					session.setAttribute("firstName", rs.getString("firstName"));
 					response.sendRedirect("index.jsp");
-		        	return;
-				} else {
-					response.sendRedirect("loginError.jsp");
-		        	return;
-				}
-			} else {
-				response.sendRedirect("loginError.jsp");
-				return;
-			}
-		} else {
-			response.sendRedirect("loginError.jsp");
-			return;
-		}
-	
-	} catch (Exception e) {
+                } else response.sendRedirect("loginError.jsp");
+            } else response.sendRedirect("loginError.jsp");
+        } else response.sendRedirect("loginError.jsp");
+        return;
+
+    } catch (Exception e) {
         out.print("<p>Error connecting to MYSQL server.</p>");
         e.printStackTrace();
     } finally {
-    	try { rs.close(); } catch (Exception ignored) {}
+    	try {
+            assert rs != null;
+            rs.close(); } catch (Exception ignored) {}
         try { ps.close(); } catch (Exception ignored) {}
         try { conn.close(); } catch (Exception ignored) {}
     }

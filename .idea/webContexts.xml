@@ -3,7 +3,9 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/buyMe_Group20/WebContent/account.jsp" value="file://$PROJECT_DIR$/buyMe_Group20/WebContent" />
         <entry key="file://$PROJECT_DIR$/buyMe_Group20/WebContent/accountSettings.jsp" value="file://$PROJECT_DIR$/buyMe_Group20/WebContent" />
+        <entry key="file://$PROJECT_DIR$/buyMe_Group20/WebContent/index.jsp" value="file://$PROJECT_DIR$/buyMe_Group20/WebContent" />
       </map>
     </option>
   </component>

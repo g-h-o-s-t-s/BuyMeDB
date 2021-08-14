@@ -6,7 +6,7 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Add to AlertsList</title>
+<title>Add to AlertsList</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>

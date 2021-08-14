@@ -16,7 +16,8 @@
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
 		<%
-				String url = "jdbc:mysql://localhost:3306/buyMe";
+				String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+                    "?verifyServerCertificate=false&useSSL=true";
 				Connection conn = null;
 				PreparedStatement ps1 = null;
 				PreparedStatement ps2 = null;
@@ -32,11 +33,11 @@
 				
 				try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+					conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				
 					String user = session.getAttribute("userAccount").toString();
 					int productId = Integer.parseInt(request.getParameter("productId"));
-					String access_level = (String) session.getAttribute("accessLevel");
+					String accessLevel = (String) session.getAttribute("accessLevel");
 					String productQuery = "SELECT * FROM Product WHERE productId=?";
 					ps1 = conn.prepareStatement(productQuery);
 					ps1.setInt(1, productId);
@@ -119,8 +120,8 @@
 		<%= currency.format(price) %>
 		<br>
 		<% } %>
-		<!-- Provide option to place bid if current user is not the sellerAccount -->
-		<% if (!session.getAttribute("userAccount").equals(rs.getString("sellerAccount")) && access_level.equals("END_USER")) {
+		<!-- Place bid if not seller -->
+		<% if (!session.getAttribute("userAccount").equals(rs.getString("sellerAccount")) && accessLevel.equals("END_USER")) {
 								// Check if user has autobid setup for this product, if no display the following
 								String queryAutoBid = "SELECT * FROM AutoBidder WHERE userAcc=? AND productId=?";
 								autoPs = conn.prepareStatement(queryAutoBid);
@@ -149,8 +150,8 @@
 		<form
 			action="bidHandler.jsp?bidder=<%= user %>&productId=<%= productId %>&isStartingBid=<%= isStartingBid %>&auto=true"
 			method="POST" class="auto-bid-form">
-			<% if (isStartingBid) { %>
-			<label for="bidAmount">Start auto-bidding at <%= currency.format(price) %>
+			<% %>if (isStartingBid) {
+            <label for="bidAmount">Start auto-bidding at <%= currency.format(price) %>
 				or higher
 			</label><br> <input type="number" step="0.01" name="bid"
 				placeholder="Enter bid" min="<%= price %>" max="100000000.01"
@@ -162,8 +163,8 @@
 			<label for="maxBid">Upper Limit</label><br> <input type="number"
 				step="0.01" name="maxBid" placeholder="Enter upper limit" min="0.01"
 				max="100000000.01" id="maxBid" required>
-			<% } else { %>
-			<label for="bidAmount">Start auto-bidding higher than <%= currency.format(price) %></label><br>
+            } else {
+            <label for="bidAmount">Start auto-bidding higher than <%= currency.format(price) %></label><br>
 			<input type="number" step="0.01" name="bid" placeholder="Enter bid"
 				min="<%= minPrice %>" max="100000000.01" id="bidAmount" required><br>
 
@@ -174,14 +175,14 @@
 				for="maxBid">Upper Limit</label><br> <input type="number"
 				step="0.01" name="maxBid" placeholder="Enter upper limit" min="0.01"
 				max="100000000.01" id="maxBid" required>
-			<% } %>
+            }<% %>
 			<br>
 			<input type="submit" value="Start auto-bid">
 		</form>
 		<%	} else { %>
 		<h2>You have setup automatic bidding for this auction.</h2>
 		<%	}
-					   } else if (access_level.equals("CUSTOMER_REP") || access_level.equals("ADMIN")) { %>
+					   } else if (accessLevel.equals("CUSTOMER_REP") || accessLevel.equals("ADMIN")) { %>
 		<form
 			action="cancelAuctionHandler.jsp?productId=<%= productId %>&sellerAccount=<%= rs.getString("sellerAccount") %>"
 			method="POST">

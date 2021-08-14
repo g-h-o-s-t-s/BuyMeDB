@@ -1,8 +1,8 @@
-<%@ page language="java" pageEncoding="ISO-8859-1"%>
+<%@ page pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-	<title>BuyMe - UserAccount Options</title>
+	<title>UserAccount Options</title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>

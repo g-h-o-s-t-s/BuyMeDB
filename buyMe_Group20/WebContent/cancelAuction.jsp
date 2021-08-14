@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe</title>
+<title>Cancel Auction</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>

@@ -2,13 +2,14 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <% 
-		String url = "jdbc:mysql://localhost:3306/buyMe";
+		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 		Connection conn = null;
 		PreparedStatement ps = null;
 			
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+			conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 			
 			int questionId = Integer.parseInt(request.getParameter("questionId"));
 			String answer = request.getParameter("Answer");
@@ -29,7 +30,7 @@
 		        } else { %>
 <jsp:include page="questions.jsp" flush="true" />
 <div class="content center">
-	<h1>Question was successfully answered.</h1>
+	<h1>Question was answered.</h1>
 </div>
 <%  }
 			} else {

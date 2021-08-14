@@ -4,13 +4,13 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Register Error</title>
+<title>Register Error</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 	<div class="content center">
-		<h2>Error: Registration failed. Please enter the correct
-			information and try again.</h2>
+		<h2>Unable to complete registration.
+            Please review the information below.</h2>
 		<form action="registerHandler.jsp" method="POST">
 			<label for="firstName">First Name</label> <input type="text"
 				name="firstName" id="firstName" placeholder="First Name">

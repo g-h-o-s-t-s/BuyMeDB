@@ -2,14 +2,15 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	String url = "jdbc:mysql://localhost:3306/buyMe";
+	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 	Connection conn = null;			
 	PreparedStatement ps = null;
 	PreparedStatement pwPs = null;
 	ResultSet rs = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 		
 		String user = (session.getAttribute("user")).toString();
 		String deactivatedAccount = request.getParameter("deactivated_account");
@@ -56,7 +57,7 @@
 
 <%	
 	
-		String query = "UPDATE UserAccount SET active=false WHERE username=?";
+		String query = "UPDATE UserAccount SET isActive=false WHERE username=?";
 		ps = conn.prepareStatement(query);
 		ps.setString(1, deactivatedAccount);
 

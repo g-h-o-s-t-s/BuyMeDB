@@ -2,7 +2,8 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	String url = "jdbc:mysql://localhost:3306/buyMe";
+	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 	Connection conn = null;			
 	PreparedStatement ps1 = null;
 	PreparedStatement ps2 = null;
@@ -14,7 +15,7 @@
 	ResultSet autoRs = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 	
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		String bidder = request.getParameter("bidder");

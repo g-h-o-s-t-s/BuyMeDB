@@ -5,12 +5,13 @@
 	if(session.getAttribute("userAccount") == null) {
 		response.sendRedirect("login.jsp");
 	} else {
-		String url = "jdbc:mysql://localhost:3306/buyMe";
+		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 		Connection conn = null;			
 		PreparedStatement ps = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+			conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 			
 			//System.out.println(request.getParameter("messageId"));
 			int messageId = Integer.parseInt(request.getParameter("messageId"));

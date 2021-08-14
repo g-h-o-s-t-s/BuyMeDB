@@ -4,7 +4,7 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Register Success</title>
+<title>Register Success, Customer Rep</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>

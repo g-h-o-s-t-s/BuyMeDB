@@ -1,7 +1,7 @@
 # Initial database creation.
-DROP DATABASE IF EXISTS database20;
-CREATE DATABASE IF NOT EXISTS database20;
-USE database20;
+DROP DATABASE IF EXISTS buyMe;
+CREATE DATABASE IF NOT EXISTS buyMe;
+USE buyMe;
 
 /*  
     UserAccount table, accessLevel represents all three types

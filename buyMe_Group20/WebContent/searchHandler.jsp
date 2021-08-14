@@ -5,7 +5,7 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Search Results</title>
+<title>Search - Results</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -38,14 +38,15 @@
 			Locale locale = new Locale("en", "US");
 			NumberFormat currency = NumberFormat.getCurrencyInstance(locale);
 			
-			String url = "jdbc:mysql://localhost:3306/buyMe";
+			String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+                    "?verifyServerCertificate=false&useSSL=true";
 			Connection conn = null;
 			Statement s = null;
 			ResultSet rs = null;
 				
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				
 					
 				StringBuilder searchQuery = new StringBuilder("SELECT * FROM Product WHERE ");
@@ -99,7 +100,9 @@
 		<%	// No search params whatsoever
 			    e.printStackTrace();
 			} finally {
-			    try { rs.close(); } catch (Exception ignored) {}
+			    try {
+                    assert rs != null;
+                    rs.close(); } catch (Exception ignored) {}
 			    try { s.close(); } catch (Exception ignored) {}
 			    try { conn.close(); } catch (Exception ignored) {}
 			}

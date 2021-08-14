@@ -2,13 +2,14 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	String url = "jdbc:mysql://localhost:3306/buyMe";
+	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 	Connection conn = null;
 	PreparedStatement ps = null;
 	
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 		
 		// Get the parameters from the register request
 		String firstName = request.getParameter("firstName");
@@ -32,7 +33,7 @@
 				&& password != null && !password.isEmpty()) {
 			
 			// Build the SQL query with placeholders for parameters
-			String insert = "INSERT INTO UserAccount (username, password, email, firstName, lastName, address, active, access_level)"
+			String insert = "INSERT INTO UserAccount (username, password, email, firstName, lastName, address, isActive, accessLevel)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(insert);
 			
@@ -46,7 +47,7 @@
 			ps.setBoolean(7, true);
 			ps.setString(8, accessLevel);
 			
-			int result = 0;
+			int result;
 	        result = ps.executeUpdate();
 	        if (result < 1) {
 	        	out.println("Error: Registration failed.");

@@ -4,8 +4,9 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8">
+<html><head>
+    <!-- This meta tag allows the CSS file to link properly. -->
+    <meta charset="utf-8">
 	<title>BuyMe Home</title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
@@ -19,7 +20,8 @@
 			Hello,
 			<%=session.getAttribute("firstName")%></h1>
 		<%
-	    		String url = "jdbc:mysql://localhost:3306/buyMe";
+	    		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+                        "?verifyServerCertificate=false&useSSL=true";
 	    		Connection conn = null;
 	    		PreparedStatement ps = null;
 	    		PreparedStatement accountPs = null;
@@ -30,7 +32,7 @@
 	    		
 	    		try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+					conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 				
 	    		
 		    		Locale locale = new Locale("en", "US");

@@ -1,15 +1,17 @@
+<%--suppress deprecation --%>
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.text.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
 <%
-	String url = "jdbc:mysql://localhost:3306/buyMe";
+	String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+            "?verifyServerCertificate=false&useSSL=true";
 	Connection conn = null;			
 	PreparedStatement ps = null;
 	PreparedStatement pwPs = null;
 	ResultSet rs = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+		conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
 		
 		String user = (session.getAttribute("user")).toString();
 		String firstName = request.getParameter("firstName");
@@ -80,7 +82,7 @@
 			ps.setString(5, newPassword);
 		}
 		ps.setString(6, user);
-		int updateResult = 0;
+		int updateResult;
 		updateResult = ps.executeUpdate();
 		if (updateResult < 1) {
 			// Failed to execute the update statement
@@ -99,8 +101,12 @@
 		out.print("<p>Error connecting to MYSQL server.</p>");
 	    e.printStackTrace();
 	} finally {
-		try { rs.close(); } catch (Exception ignored) {}
-		try { ps.close(); } catch (Exception ignored) {}
+		try {
+            assert rs != null;
+            rs.close(); } catch (Exception ignored) {}
+		try {
+            assert ps != null;
+            ps.close(); } catch (Exception ignored) {}
 		try { pwPs.close(); } catch (Exception ignored) {}
         try { conn.close(); } catch (Exception ignored) {}
 	}

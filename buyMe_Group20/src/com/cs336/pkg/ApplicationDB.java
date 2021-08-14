@@ -13,8 +13,9 @@ public class ApplicationDB {
 	@SuppressWarnings("deprecation")
 	public Connection getConnection(){
 		
-		//Create a connection string
-		String connectionUrl = "jdbc:mysql://localhost:3306/database20";
+		//Second line allows for suppression of SSL-related errors in console
+		String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+                "?verifyServerCertificate=false&useSSL=true";
 		Connection connection = null;
 		
 		try {

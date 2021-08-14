@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
-<title>BuyMe - Your Purchase History</title>
+<title>Your Buying History</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,7 +15,8 @@
 	<%@ include file="navbar.jsp"%>
 	<div class="content">
 		<% 
-   			String url = "jdbc:mysql://localhost:3306/buyMe";
+   			String connectionUrl = "jdbc:mysql://localhost:3306/buyMe" +
+                    "?verifyServerCertificate=false&useSSL=true";
 			Connection conn = null;
 			PreparedStatement ps = null;
 			ResultSet rs1 = null;
@@ -24,7 +25,7 @@
 			
    			try {   		
    				Class.forName("com.mysql.jdbc.Driver").newInstance();
-   				conn = DriverManager.getConnection(url, "root", "UN5AW!]x9K{[bP");
+   				conn = DriverManager.getConnection(connectionUrl, "root", "UN5AW!]x9K{[bP");
    				
    				String user = (session.getAttribute("user")).toString(); 				
    				// Create formatter for US currency

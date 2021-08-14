@@ -5,7 +5,7 @@
 <head><meta charset="utf-8">
 
 
-<title>BuyMe - Auction Created Successfully</title>
+<title>Auction Created Successfully</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
