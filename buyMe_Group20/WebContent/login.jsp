@@ -1,5 +1,4 @@
-<%@ page language="java"
-	pageEncoding="ISO-8859-1"%>
+<%@ page pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8">
@@ -13,7 +12,8 @@
 			<i>Buy and Sell Your Headphones with
                 the friendliest online community!</i>
 		</h2>
-		<form action="loginHandler.jsp" method="POST">
+		<form action="${pageContext.request.contextPath}/com.cs336.servlets.LoginServlet"
+              method="POST">
             <label>
                 <input type="text" name="username" placeholder="Username">
             </label> <br>
@@ -23,7 +23,7 @@
             <br> <input type="submit" value="Login">
 		</form>
         <br>
-		<a href="register.jsp">Don't have an account? Register here.</a>
+		<a href="register.jsp">No account? Just register here.</a>
 	</div>
 </body>
 </html>
